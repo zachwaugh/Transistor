@@ -1,0 +1,486 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		256AC3DA0F4B6AC300CF3369 /* TRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* TRAppDelegate.m */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		923B97C5130874150057761F /* TRContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97C4130874150057761F /* TRContentView.m */; };
+		923B97C7130874620057761F /* content_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B97C6130874620057761F /* content_bg.png */; };
+		923B97E1130875110057761F /* TRMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97E0130875110057761F /* TRMainWindowController.m */; };
+		923B97E31308751E0057761F /* TRMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923B97E21308751E0057761F /* TRMainWindow.xib */; };
+		923B97EF130876F50057761F /* TRPianobarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97EE130876F50057761F /* TRPianobarManager.m */; };
+		923B985D130883E40057761F /* TransistorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B985B130883C90057761F /* TransistorHelper.m */; };
+		923B9A0513088FF20057761F /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A0213088FF20057761F /* next.png */; };
+		923B9A0613088FF20057761F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A0313088FF20057761F /* pause.png */; };
+		923B9A0713088FF20057761F /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A0413088FF20057761F /* play.png */; };
+		923B9A2C1308954C0057761F /* next_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A291308954C0057761F /* next_over.png */; };
+		923B9A2D1308954C0057761F /* pause_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2A1308954C0057761F /* pause_over.png */; };
+		923B9A2E1308954C0057761F /* play_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2B1308954C0057761F /* play_over.png */; };
+		923B9A38130896610057761F /* TRArtworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B9A37130896610057761F /* TRArtworkView.m */; };
+		923B9B2A1308ADAA0057761F /* TransistorHelper in Resources */ = {isa = PBXBuildFile; fileRef = 923B9851130883A80057761F /* TransistorHelper */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		923B9B231308AD310057761F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 923B9850130883A80057761F /* TransistorHelper */;
+			remoteInfo = TransistorHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		256AC3D80F4B6AC300CF3369 /* TRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRAppDelegate.h; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* TRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRAppDelegate.m; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* Transistor_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transistor_Prefix.pch; path = source/Transistor_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = source/main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8D1107310486CEB800E47090 /* Transistor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Transistor-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Transistor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transistor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		923B97C3130874150057761F /* TRContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRContentView.h; sourceTree = "<group>"; };
+		923B97C4130874150057761F /* TRContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRContentView.m; sourceTree = "<group>"; };
+		923B97C6130874620057761F /* content_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = content_bg.png; sourceTree = "<group>"; };
+		923B97DF130875110057761F /* TRMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRMainWindowController.h; sourceTree = "<group>"; };
+		923B97E0130875110057761F /* TRMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRMainWindowController.m; sourceTree = "<group>"; };
+		923B97E21308751E0057761F /* TRMainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TRMainWindow.xib; sourceTree = "<group>"; };
+		923B97ED130876F50057761F /* TRPianobarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRPianobarManager.h; sourceTree = "<group>"; };
+		923B97EE130876F50057761F /* TRPianobarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRPianobarManager.m; sourceTree = "<group>"; };
+		923B9851130883A80057761F /* TransistorHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TransistorHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		923B985B130883C90057761F /* TransistorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransistorHelper.m; sourceTree = "<group>"; };
+		923B9A0213088FF20057761F /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		923B9A0313088FF20057761F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		923B9A0413088FF20057761F /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		923B9A291308954C0057761F /* next_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_over.png; sourceTree = "<group>"; };
+		923B9A2A1308954C0057761F /* pause_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_over.png; sourceTree = "<group>"; };
+		923B9A2B1308954C0057761F /* play_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_over.png; sourceTree = "<group>"; };
+		923B9A36130896610057761F /* TRArtworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRArtworkView.h; sourceTree = "<group>"; };
+		923B9A37130896610057761F /* TRArtworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRArtworkView.m; sourceTree = "<group>"; };
+		923B9AC21308A9000057761F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		923B984F130883A80057761F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				923B9855130883BA0057761F /* TransistorHelper */,
+				923B97E5130876CC0057761F /* Pianobar */,
+				923B97C2130873D70057761F /* Views */,
+				256AC3D80F4B6AC300CF3369 /* TRAppDelegate.h */,
+				256AC3D90F4B6AC300CF3369 /* TRAppDelegate.m */,
+				923B97DF130875110057761F /* TRMainWindowController.h */,
+				923B97E0130875110057761F /* TRMainWindowController.m */,
+			);
+			name = Classes;
+			path = source/Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Transistor.app */,
+				923B9851130883A80057761F /* TransistorHelper */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Panda */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = Panda;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				256AC3F00F4B6AF500CF3369 /* Transistor_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				923B9A291308954C0057761F /* next_over.png */,
+				923B9A2A1308954C0057761F /* pause_over.png */,
+				923B9A2B1308954C0057761F /* play_over.png */,
+				923B9A0213088FF20057761F /* next.png */,
+				923B9A0313088FF20057761F /* pause.png */,
+				923B9A0413088FF20057761F /* play.png */,
+				923B97C6130874620057761F /* content_bg.png */,
+				8D1107310486CEB800E47090 /* Transistor-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				923B97E21308751E0057761F /* TRMainWindow.xib */,
+				923B9AC21308A9000057761F /* README.md */,
+			);
+			name = Resources;
+			path = resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		923B97C2130873D70057761F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				923B97C3130874150057761F /* TRContentView.h */,
+				923B97C4130874150057761F /* TRContentView.m */,
+				923B9A36130896610057761F /* TRArtworkView.h */,
+				923B9A37130896610057761F /* TRArtworkView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		923B97E5130876CC0057761F /* Pianobar */ = {
+			isa = PBXGroup;
+			children = (
+				923B97ED130876F50057761F /* TRPianobarManager.h */,
+				923B97EE130876F50057761F /* TRPianobarManager.m */,
+			);
+			name = Pianobar;
+			sourceTree = "<group>";
+		};
+		923B9855130883BA0057761F /* TransistorHelper */ = {
+			isa = PBXGroup;
+			children = (
+				923B985B130883C90057761F /* TransistorHelper.m */,
+			);
+			name = TransistorHelper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* Transistor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Transistor" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				923B9B241308AD310057761F /* PBXTargetDependency */,
+			);
+			name = Transistor;
+			productInstallPath = "$(HOME)/Applications";
+			productName = Panda;
+			productReference = 8D1107320486CEB800E47090 /* Transistor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		923B9850130883A80057761F /* TransistorHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 923B9856130883BA0057761F /* Build configuration list for PBXNativeTarget "TransistorHelper" */;
+			buildPhases = (
+				923B984E130883A80057761F /* Sources */,
+				923B984F130883A80057761F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TransistorHelper;
+			productName = TransistorHelper;
+			productReference = 923B9851130883A80057761F /* TransistorHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Transistor" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Panda */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				923B9850130883A80057761F /* TransistorHelper */,
+				8D1107260486CEB800E47090 /* Transistor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				923B9B2A1308ADAA0057761F /* TransistorHelper in Resources */,
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				923B97C7130874620057761F /* content_bg.png in Resources */,
+				923B97E31308751E0057761F /* TRMainWindow.xib in Resources */,
+				923B9A0513088FF20057761F /* next.png in Resources */,
+				923B9A0613088FF20057761F /* pause.png in Resources */,
+				923B9A0713088FF20057761F /* play.png in Resources */,
+				923B9A2C1308954C0057761F /* next_over.png in Resources */,
+				923B9A2D1308954C0057761F /* pause_over.png in Resources */,
+				923B9A2E1308954C0057761F /* play_over.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				256AC3DA0F4B6AC300CF3369 /* TRAppDelegate.m in Sources */,
+				923B97C5130874150057761F /* TRContentView.m in Sources */,
+				923B97E1130875110057761F /* TRMainWindowController.m in Sources */,
+				923B97EF130876F50057761F /* TRPianobarManager.m in Sources */,
+				923B9A38130896610057761F /* TRArtworkView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		923B984E130883A80057761F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				923B985D130883E40057761F /* TransistorHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		923B9B241308AD310057761F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 923B9850130883A80057761F /* TransistorHelper */;
+			targetProxy = 923B9B231308AD310057761F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		923B9853130883A80057761F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TransistorHelper;
+			};
+			name = Debug;
+		};
+		923B9854130883A80057761F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TransistorHelper;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = source/Transistor_Prefix.pch;
+				INFOPLIST_FILE = "resources/Transistor-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Transistor;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = source/Transistor_Prefix.pch;
+				INFOPLIST_FILE = "resources/Transistor-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Transistor;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		923B9856130883BA0057761F /* Build configuration list for PBXNativeTarget "TransistorHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				923B9853130883A80057761F /* Debug */,
+				923B9854130883A80057761F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Transistor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Transistor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
