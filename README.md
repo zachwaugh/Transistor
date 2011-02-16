@@ -30,6 +30,6 @@ Transistor consists of two binaries, the Transistor app and a TransistorHelper a
 
 
 ## Screenshot
-![0.2 screenshot](http://cloud.github.com/downloads/zachwaugh/Transistor/transistor_screenshot.png)
+<img src="http://cloud.github.com/downloads/zachwaugh/Transistor/transistor_screenshot.png" alt="Transistor 0.2 screenshot">
 
 
