@@ -8,6 +8,10 @@
 
 #import "TRPianobarManager.h"
 
+// Notifications
+NSString * const TransistorSelectStationNotification = @"TransistorSelectStationNotification";
+
+
 static TRPianobarManager *sharedPianobarManager = nil;
 
 @interface TRPianobarManager ()
@@ -21,7 +25,7 @@ static TRPianobarManager *sharedPianobarManager = nil;
 
 @implementation TRPianobarManager
 
-@synthesize currentArtist, currentSong, currentAlbum, currentTime, currentArtworkURL;
+@synthesize currentArtist, currentSong, currentAlbum, currentTime, currentArtworkURL, stationList;
 
 - (id)init
 {
@@ -38,6 +42,8 @@ static TRPianobarManager *sharedPianobarManager = nil;
     currentSong = @"";
     currentAlbum = @"";
     currentTime = @"";
+    stationList = @"";
+    stationsStarted = NO;
     
     // Basic plumbing for communicating with the pianobar process
     outputPipe = [[NSPipe pipe] retain];
@@ -82,38 +88,19 @@ static TRPianobarManager *sharedPianobarManager = nil;
 // Sends a command to pianobar via stdin
 - (void)sendCommand:(NSString *)command
 {
+  NSLog(@"pianobar: sendCommand: %@", command);
   [writeHandle writeData:[[NSString stringWithFormat:@"%@\n", command] dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 
 // Notification when output is available from pianobar 
 - (void)outputAvailable: (NSNotification *)notification
-{  
-  NSData *data;
-  NSString *output;
-  
-  data = [[notification userInfo] objectForKey:@"NSFileHandleNotificationDataItem"];
+{
+  NSData *data = [[notification userInfo] objectForKey:@"NSFileHandleNotificationDataItem"];
   
   if ([data length])
   {
-    output = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    
-    [self processOutput:output];
-    
-    // Not using these at the moment, username/password should be in ~/.config/pianobar/config
-    if ([output rangeOfString:@"Username"].location != NSNotFound)
-    {
-      [self sendCommand:@""];
-    }
-    else if ([output rangeOfString:@"Password"].location != NSNotFound)
-    {
-      [self sendCommand:@""];
-    }
-    else if ([output rangeOfString:@"Select station"].location != NSNotFound)
-    {
-      // Hardcoded to station 1
-      [self sendCommand:@"1"];
-    }
+    [self processOutput:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
     
     [readHandle readInBackgroundAndNotify];
   }
@@ -121,16 +108,50 @@ static TRPianobarManager *sharedPianobarManager = nil;
 
 
 // Take all the output and figure out what to do with it
-// Currently just using it to get the current track time
 - (void)processOutput:(NSString *)output
 {
+  //NSLog(@"raw output:\n%@", output);
+  
   // Remove whitespace and newlines from output as well as the character pianobar starts every line with
-	NSString *cleaned = [[output stringByReplacingOccurrencesOfString:@"\033[2K" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	NSString *cleaned = [[[output stringByReplacingOccurrencesOfString:@"\033[2K" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
+  // Concatenate station list output
+  if (stationsStarted)
+  {
+    self.stationList = [self.stationList stringByAppendingFormat:@"%@\n", cleaned];
+  }
+  
   // Time lines are prefixed with #
   if ([cleaned hasPrefix:@"#"])
   {
     self.currentTime = [cleaned stringByReplacingOccurrencesOfString:@"#  " withString:@""];
+  }
+  else if ([cleaned rangeOfString:@"Username"].location != NSNotFound)
+  {
+    // Not using at the moment, username should be in ~/.config/pianobar/config
+    [self sendCommand:@""];
+  }
+  else if ([cleaned rangeOfString:@"Password"].location != NSNotFound) 
+  {
+     // Not using at the moment, password should be in ~/.config/pianobar/config
+    [self sendCommand:@""];
+  }
+  else if ([cleaned rangeOfString:@"Get stations"].location != NSNotFound)
+  {
+    // Start of station list output
+    stationsStarted = YES;
+  }
+  else if ([cleaned rangeOfString:@"Select station"].location != NSNotFound)
+  {
+    // End of station list output, prompt for selecting station
+    stationsStarted = NO;
+
+    // A little more specific cleanup
+    self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"Ok.\n" withString:@""];
+    self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"\n[?] Select station:\n" withString:@""];
+    
+    // Notification that we need to choose a station
+    [[NSNotificationCenter defaultCenter] postNotificationName:TransistorSelectStationNotification object:self userInfo:[NSDictionary dictionaryWithObject:self.stationList forKey:@"stations"]];
   }
 }
 
@@ -142,7 +163,7 @@ static TRPianobarManager *sharedPianobarManager = nil;
 // Only handling a single event, when a new song starts
 - (void)handleSongStartEvent:(NSNotification *)notification
 {
-	[self parseEventInfo:[notification object]];	
+  [self parseEventInfo:[notification object]];	
 }
 
 
@@ -150,20 +171,20 @@ static TRPianobarManager *sharedPianobarManager = nil;
 // Parse into a dictionary so we can get the info we need out easier
 - (void)parseEventInfo:(NSString *)info
 {
-	NSMutableDictionary *data = [NSMutableDictionary dictionary];
-	NSArray *lines = [[info stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@"\n"];
+  NSMutableDictionary *data = [NSMutableDictionary dictionary];
+  NSArray *lines = [[info stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@"\n"];
   
-	for (NSString *line in lines)
-	{
-		NSArray *keyValue = [line componentsSeparatedByString:@"="];
-		[data setObject:[keyValue objectAtIndex:1] forKey:[keyValue objectAtIndex:0]];
-	}
+  for (NSString *line in lines)
+  {
+    NSArray *keyValue = [line componentsSeparatedByString:@"="];
+    [data setObject:[keyValue objectAtIndex:1] forKey:[keyValue objectAtIndex:0]];
+  }
 	
   // Use accessors to ensure KVO notifications are sent
-	self.currentArtist = [data objectForKey:@"artist"];
-	self.currentSong = [data objectForKey:@"title"];
-	self.currentAlbum = [data objectForKey:@"album"];
-	self.currentArtworkURL = [NSURL URLWithString:[data objectForKey:@"coverArt"]];
+  self.currentArtist = [data objectForKey:@"artist"];
+  self.currentSong = [data objectForKey:@"title"];
+  self.currentAlbum = [data objectForKey:@"album"];
+  self.currentArtworkURL = [NSURL URLWithString:[data objectForKey:@"coverArt"]];
 }
 
 

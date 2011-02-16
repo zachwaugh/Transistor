@@ -15,7 +15,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
   windowController = [[TRMainWindowController alloc] initWithWindowNibName:@"TRMainWindow"];
-  [windowController showWindow:nil];
+  [windowController showWindow:self];
 }
 
 

@@ -12,10 +12,11 @@ int main (int argc, const char * argv[])
     
     NSString *info = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
     
+    //NSLog(@"event: %@, info:\n%@", event, info);
+    
     // Only handling songstart event at the moment
     if ([event isEqualToString:@"songstart"])
     {
-      NSLog(@"-- handled event: %@", event);
       [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"TransistorSongStartEventNotification" object:info];
     }
   }

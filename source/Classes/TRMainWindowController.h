@@ -14,13 +14,18 @@
 {
   NSTextField *song;
   NSTextField *artist;
-	NSTextField *album;
+  NSTextField *album;
   NSTextField *time;
-	TRArtworkView *artwork;
+  TRArtworkView *artwork;
   NSButton *pauseButton;
   
-	BOOL paused;
+  BOOL paused;
   TRPianobarManager *pianobar;
+  
+  // Stations
+  NSWindow *stationsWindow;
+  NSTextView *stations;
+  NSTextField *station;
 }
 
 
@@ -30,9 +35,15 @@
 @property (assign) IBOutlet NSTextField *time;
 @property (assign) IBOutlet TRArtworkView *artwork;
 @property (assign) IBOutlet NSButton *pauseButton;
+@property (assign) IBOutlet NSWindow *stationsWindow;
+@property (assign) IBOutlet NSTextView *stations;
+@property (assign) IBOutlet NSTextField *station;
 @property (assign) BOOL paused;
+
 
 - (void)pause:(id)sender;
 - (void)next:(id)sender;
+- (void)didSelectStation:(id)sender;
+- (void)showStations;
 
 @end

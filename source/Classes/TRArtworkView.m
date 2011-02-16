@@ -27,11 +27,11 @@
   {
     NSShadow *shadow = [[NSShadow alloc] init];
     [shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.5]];
-    [shadow setShadowOffset:NSMakeSize(0, -2)];
-    [shadow setShadowBlurRadius:3.0];
+    [shadow setShadowOffset:NSMakeSize(0, -3)];
+    [shadow setShadowBlurRadius:5.0];
     [shadow set];
     
-    [self.artwork drawInRect:NSMakeRect(3, 0, 130, 130) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
+    [self.artwork drawInRect:NSMakeRect(5, 0, 130, 130) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
     [shadow release];
   }
 }

@@ -2,7 +2,7 @@ Transistor is a native mac app that is currently just a GUI for the [pianobar](h
 
 
 ## Warning
-Warning, this is definitely buggy and not even an alpha yet, put together in a few hours. I haven't spent any time yet optimizing or looking for memory leaks. But feel free to give it a go. Open an issue for any bugs or feature requests.
+Warning, this is definitely buggy and not even an alpha yet, put together in a few hours. I haven't spent any time yet optimizing or looking for memory leaks. But I've been using it pretty much all day for the last week, so feel free to give it a go. You can get binary from the downloads. Open an issue for any bugs or feature requests.
 
 
 ## Installation
@@ -16,17 +16,14 @@ In this first version, it assumes the pianobar binary is at /usr/local/bin/piano
     password = yourpandorapassword
     event_command = /Applications/Transistor.app/Contents/Resources/TransistorHelper
 
-And, right now, it automatically plays your first station. Hey, I said it's not even alpha yet, but I'll be fixing these rough edges soon.
-
-
 
 ## Architecture
-Transistor consists of two binaries, the Transistor app and a TransistorHelper app. The main app launches and manages the pianobar process, connecting pianobar's stdin and stdout to NSPipe's. In addition to stdin and stdout, pianobar has an external events system that sends events to the TransistorHelper command line app which then sends a distributed notification to the main Transistor app. I could do it all by parsing stdout, but this is simpler for now.
+Transistor consists of two binaries, the Transistor app and a TransistorHelper app. The main app launches and manages the pianobar process, connecting pianobar's stdin and stdout to a Objective-C pipe. In addition to stdin and stdout, pianobar has an external events system that sends events to the TransistorHelper command line app which then sends a distributed notification to the main Transistor app. I could do it all by parsing stdout, but this is simpler for now.
 
 
 ## Todo
 - Prompt for username and password, store in keychain
-- UI for choosing/changing stations
+- Better UI for choosing/changing stations
 - Support for other Pandora commands (thumbs up, thumbs down, bookmark, etc)
 - Growl integration
 - Global keyboard shortcuts for play/pause and next song (maybe intercept keyboard shortcuts iTunes uses if we can prevent them from also reaching iTunes)

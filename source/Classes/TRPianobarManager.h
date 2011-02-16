@@ -12,10 +12,12 @@
 #define PAUSE @"p"
 #define NEXT @"n"
 
+extern NSString * const TransistorSelectStationNotification;
+
 @interface TRPianobarManager : NSObject
 {
   NSTask *pianobar;
-	NSPipe *inputPipe;
+  NSPipe *inputPipe;
   NSPipe *outputPipe;
   NSFileHandle *readHandle;
   NSFileHandle *writeHandle;
@@ -25,6 +27,9 @@
   NSString *currentAlbum;
   NSString *currentTime;
   NSURL *currentArtworkURL;
+  NSString *stationList;
+  
+  BOOL stationsStarted;
 }
 
 @property (retain) NSString *currentArtist;
@@ -32,6 +37,7 @@
 @property (retain) NSString *currentAlbum;
 @property (retain) NSString *currentTime;
 @property (retain) NSURL *currentArtworkURL;
+@property (retain) NSString *stationList;
 
 + (TRPianobarManager *)sharedManager;
 - (void)sendCommand:(NSString *)command;

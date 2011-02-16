@@ -13,13 +13,22 @@
 
 @implementation TRMainWindowController
 
-@synthesize song, artist, album, time, artwork, paused, pauseButton;
+@synthesize song, artist, album, time, artwork, paused, pauseButton, stations, station, stationsWindow;
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  
+  [super dealloc];
+}
+
 
 - (void)awakeFromNib
 {
   // Keep reference to TRPianobarManager, which also automatically starts pianobar
   pianobar = [TRPianobarManager sharedManager];
-  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pianobarNotification:) name:nil object:pianobar];
+
   // KVO for all the current properties that pianobar exposes for automatic changes
   [pianobar addObserver:self forKeyPath:@"currentArtist" options:NSKeyValueObservingOptionNew context:nil];
   [pianobar addObserver:self forKeyPath:@"currentSong" options:NSKeyValueObservingOptionNew context:nil];
@@ -61,6 +70,16 @@
 }
 
 
+- (void)pianobarNotification:(NSNotification *)notification
+{
+  if ([notification name] == TransistorSelectStationNotification)
+  {
+    [self showStations];
+    [self.stations setString:[[notification userInfo] objectForKey:@"stations"]];
+  }
+}
+
+
 #pragma -
 #pragma User API
 
@@ -68,7 +87,7 @@
 {
   [pianobar sendCommand:PAUSE];
 	
-	self.paused = !self.paused;
+  self.paused = !self.paused;
   
   if (self.paused)
   {
@@ -87,6 +106,24 @@
 - (void)next:(id)sender
 {
   [pianobar sendCommand:NEXT];
+}
+
+
+#pragma mark -
+#pragma mark Stations
+
+
+- (void)showStations
+{
+  [NSApp beginSheet:stationsWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+}
+
+
+- (void)didSelectStation:(id)sender
+{
+  [pianobar sendCommand:[station stringValue]];
+  [NSApp endSheet:stationsWindow];
+  [stationsWindow orderOut:self];
 }
 
 @end

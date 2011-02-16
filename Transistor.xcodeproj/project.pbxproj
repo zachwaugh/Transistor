@@ -33,7 +33,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 923B9850130883A80057761F /* TransistorHelper */;
+			remoteGlobalIDString = 923B9850130883A80057761F;
 			remoteInfo = TransistorHelper;
 		};
 /* End PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		8D1107310486CEB800E47090 /* Transistor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Transistor-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Transistor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transistor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		923B97C3130874150057761F /* TRContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRContentView.h; sourceTree = "<group>"; };
-		923B97C4130874150057761F /* TRContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRContentView.m; sourceTree = "<group>"; };
+		923B97C4130874150057761F /* TRContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = TRContentView.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		923B97C6130874620057761F /* content_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = content_bg.png; sourceTree = "<group>"; };
 		923B97DF130875110057761F /* TRMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRMainWindowController.h; sourceTree = "<group>"; };
 		923B97E0130875110057761F /* TRMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRMainWindowController.m; sourceTree = "<group>"; };
@@ -69,7 +69,6 @@
 		923B9A2B1308954C0057761F /* play_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_over.png; sourceTree = "<group>"; };
 		923B9A36130896610057761F /* TRArtworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRArtworkView.h; sourceTree = "<group>"; };
 		923B9A37130896610057761F /* TRArtworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRArtworkView.m; sourceTree = "<group>"; };
-		923B9AC21308A9000057761F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +167,6 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				923B97E21308751E0057761F /* TRMainWindow.xib */,
-				923B9AC21308A9000057761F /* README.md */,
 			);
 			name = Resources;
 			path = resources;
