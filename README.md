@@ -29,3 +29,7 @@ Transistor consists of two binaries, the Transistor app and a TransistorHelper a
 - Global keyboard shortcuts for play/pause and next song (maybe intercept keyboard shortcuts iTunes uses if we can prevent them from also reaching iTunes)
 
 
+## Screenshot
+![0.2 screenshot](http://cloud.github.com/downloads/zachwaugh/Transistor/transistor_screenshot.png)
+
+
