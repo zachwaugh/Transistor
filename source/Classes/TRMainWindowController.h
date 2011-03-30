@@ -12,20 +12,23 @@
 
 @interface TRMainWindowController : NSWindowController
 {
-  NSTextField *song;
-  NSTextField *artist;
-  NSTextField *album;
-  NSTextField *time;
-  TRArtworkView *artwork;
-  NSButton *pauseButton;
-  
-  BOOL paused;
-  TRPianobarManager *pianobar;
-  
-  // Stations
-  NSWindow *stationsWindow;
-  NSTextView *stations;
-  NSTextField *station;
+    NSTextField *song;
+    NSTextField *artist;
+    NSTextField *album;
+    NSTextField *time;
+    TRArtworkView *artwork;
+    NSButton *pauseButton;
+    
+    BOOL paused;
+    TRPianobarManager *pianobar;
+    
+    // Stations
+    NSWindow *stationsWindow;
+    NSWindow *signInWindow;
+    NSTextView *stations;
+    NSTextField *station;
+    NSTextField *usernameField;
+    NSTextField *passwordField;
 }
 
 
@@ -36,8 +39,11 @@
 @property (assign) IBOutlet TRArtworkView *artwork;
 @property (assign) IBOutlet NSButton *pauseButton;
 @property (assign) IBOutlet NSWindow *stationsWindow;
+@property (assign) IBOutlet NSWindow *signInWindow;
 @property (assign) IBOutlet NSTextView *stations;
 @property (assign) IBOutlet NSTextField *station;
+@property (assign) IBOutlet NSTextField *usernameField;
+@property (assign) IBOutlet NSTextField *passwordField;
 @property (assign) BOOL paused;
 
 
@@ -45,5 +51,7 @@
 - (void)next:(id)sender;
 - (void)didSelectStation:(id)sender;
 - (void)showStations;
+- (void)showSignIn;
+- (IBAction)signIn:(id)sender;
 
 @end

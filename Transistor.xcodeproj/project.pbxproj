@@ -49,6 +49,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = source/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		37A621F21342BD4600F852F5 /* pandora_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pandora_logo.png; sourceTree = "<group>"; };
+		37A621F41342BD6600F852F5 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Transistor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Transistor-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Transistor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transistor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		923B97C3130874150057761F /* TRContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRContentView.h; sourceTree = "<group>"; };
@@ -163,6 +165,8 @@
 				923B9A0313088FF20057761F /* pause.png */,
 				923B9A0413088FF20057761F /* play.png */,
 				923B97C6130874620057761F /* content_bg.png */,
+				37A621F21342BD4600F852F5 /* pandora_logo.png */,
+				37A621F41342BD6600F852F5 /* Icon.icns */,
 				8D1107310486CEB800E47090 /* Transistor-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,

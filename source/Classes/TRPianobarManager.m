@@ -7,6 +7,7 @@
 //
 
 #import "TRPianobarManager.h"
+#import <signal.h>
 
 // Notifications
 NSString * const TransistorSelectStationNotification = @"TransistorSelectStationNotification";
@@ -26,6 +27,7 @@ static TRPianobarManager *sharedPianobarManager = nil;
 @implementation TRPianobarManager
 
 @synthesize currentArtist, currentSong, currentAlbum, currentTime, currentArtworkURL, stationList;
+@synthesize username, password;
 
 - (id)init
 {
@@ -46,6 +48,31 @@ static TRPianobarManager *sharedPianobarManager = nil;
     stationsStarted = NO;
     
     // Basic plumbing for communicating with the pianobar process
+    /*outputPipe = [[NSPipe pipe] retain];
+    inputPipe = [[NSPipe pipe] retain];
+    readHandle = [outputPipe fileHandleForReading];
+    writeHandle = [inputPipe fileHandleForWriting];
+    
+    pianobar = [[NSTask alloc] init];
+    
+    // TODO: make path customizable
+    [pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
+    [pianobar setStandardOutput:outputPipe];
+    [pianobar setStandardInput:inputPipe];
+    [pianobar setStandardError:outputPipe];
+    
+    // get data asynchronously and notify when available
+    [readHandle readInBackgroundAndNotify];
+    
+    [pianobar launch];*/
+  }
+  
+  return self;
+}
+
+- (void)launch
+{
+    // Basic plumbing for communicating with the pianobar process
     outputPipe = [[NSPipe pipe] retain];
     inputPipe = [[NSPipe pipe] retain];
     readHandle = [outputPipe fileHandleForReading];
@@ -63,9 +90,6 @@ static TRPianobarManager *sharedPianobarManager = nil;
     [readHandle readInBackgroundAndNotify];
     
     [pianobar launch];
-  }
-  
-  return self;
 }
 
 
@@ -89,7 +113,14 @@ static TRPianobarManager *sharedPianobarManager = nil;
 - (void)sendCommand:(NSString *)command
 {
   NSLog(@"pianobar: sendCommand: %@", command);
+    // http://stackoverflow.com/questions/1294436/how-to-catch-sigpipe-in-iphone-app
+    signal(SIGPIPE, SigPipeHandler);
   [writeHandle writeData:[[NSString stringWithFormat:@"%@\n", command] dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
+void SigPipeHandler(int s)
+{
+    // do your handling
 }
 
 
@@ -110,7 +141,7 @@ static TRPianobarManager *sharedPianobarManager = nil;
 // Take all the output and figure out what to do with it
 - (void)processOutput:(NSString *)output
 {
-  //NSLog(@"raw output:\n%@", output);
+  NSLog(@"raw output:\n%@", output);
   
   // Remove whitespace and newlines from output as well as the character pianobar starts every line with
 	NSString *cleaned = [[[output stringByReplacingOccurrencesOfString:@"\033[2K" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -129,12 +160,12 @@ static TRPianobarManager *sharedPianobarManager = nil;
   else if ([cleaned rangeOfString:@"Username"].location != NSNotFound)
   {
     // Not using at the moment, username should be in ~/.config/pianobar/config
-    [self sendCommand:@""];
+    [self sendCommand:username];
   }
   else if ([cleaned rangeOfString:@"Password"].location != NSNotFound) 
   {
      // Not using at the moment, password should be in ~/.config/pianobar/config
-    [self sendCommand:@""];
+    [self sendCommand:password];
   }
   else if ([cleaned rangeOfString:@"Get stations"].location != NSNotFound)
   {
@@ -171,6 +202,7 @@ static TRPianobarManager *sharedPianobarManager = nil;
 // Parse into a dictionary so we can get the info we need out easier
 - (void)parseEventInfo:(NSString *)info
 {
+    NSLog(@"event info:%@", info);
   NSMutableDictionary *data = [NSMutableDictionary dictionary];
   NSArray *lines = [[info stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@"\n"];
   

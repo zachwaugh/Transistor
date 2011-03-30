@@ -14,6 +14,7 @@
 @implementation TRMainWindowController
 
 @synthesize song, artist, album, time, artwork, paused, pauseButton, stations, station, stationsWindow;
+@synthesize signInWindow, usernameField, passwordField;
 
 - (void)dealloc
 {
@@ -25,16 +26,10 @@
 
 - (void)awakeFromNib
 {
-  // Keep reference to TRPianobarManager, which also automatically starts pianobar
-  pianobar = [TRPianobarManager sharedManager];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pianobarNotification:) name:nil object:pianobar];
-
-  // KVO for all the current properties that pianobar exposes for automatic changes
-  [pianobar addObserver:self forKeyPath:@"currentArtist" options:NSKeyValueObservingOptionNew context:nil];
-  [pianobar addObserver:self forKeyPath:@"currentSong" options:NSKeyValueObservingOptionNew context:nil];
-  [pianobar addObserver:self forKeyPath:@"currentAlbum" options:NSKeyValueObservingOptionNew context:nil];
-  [pianobar addObserver:self forKeyPath:@"currentTime" options:NSKeyValueObservingOptionNew context:nil];
-  [pianobar addObserver:self forKeyPath:@"currentArtworkURL" options:NSKeyValueObservingOptionNew context:nil];
+    // Keep reference to TRPianobarManager, which also automatically starts pianobar
+    pianobar = [TRPianobarManager sharedManager];
+    // Gives window time to load otherwise modal will not slide
+    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(showSignIn) userInfo:nil repeats:NO];
 }
 
 
@@ -105,6 +100,12 @@
 
 - (void)next:(id)sender
 {
+    // If we are paused then unpause it
+    if (self.paused) {
+        self.paused = NO;
+        [self.pauseButton setImage:[NSImage imageNamed:@"pause.png"]];
+        [self.pauseButton setAlternateImage:[NSImage imageNamed:@"pause_over.png"]];
+    }
   [pianobar sendCommand:NEXT];
 }
 
@@ -115,7 +116,33 @@
 
 - (void)showStations
 {
-  [NSApp beginSheet:stationsWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+    [NSApp beginSheet:stationsWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+}
+
+- (void)showSignIn
+{
+    [NSApp beginSheet:signInWindow modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(sheetDidEnd) contextInfo:nil];
+}
+
+- (IBAction)signIn:(id)sender
+{
+    [NSApp endSheet:signInWindow];
+    [signInWindow orderOut:self];
+}
+
+- (void)sheetDidEnd
+{
+    [pianobar setUsername:[usernameField stringValue]];
+    [pianobar setPassword:[passwordField stringValue]];
+    [pianobar launch];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pianobarNotification:) name:nil object:pianobar];
+    
+    // KVO for all the current properties that pianobar exposes for automatic changes
+    [pianobar addObserver:self forKeyPath:@"currentArtist" options:NSKeyValueObservingOptionNew context:nil];
+    [pianobar addObserver:self forKeyPath:@"currentSong" options:NSKeyValueObservingOptionNew context:nil];
+    [pianobar addObserver:self forKeyPath:@"currentAlbum" options:NSKeyValueObservingOptionNew context:nil];
+    [pianobar addObserver:self forKeyPath:@"currentTime" options:NSKeyValueObservingOptionNew context:nil];
+    [pianobar addObserver:self forKeyPath:@"currentArtworkURL" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 
