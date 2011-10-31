@@ -26,6 +26,9 @@
 		923B9A2E1308954C0057761F /* play_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2B1308954C0057761F /* play_over.png */; };
 		923B9A38130896610057761F /* TRArtworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B9A37130896610057761F /* TRArtworkView.m */; };
 		923B9B2A1308ADAA0057761F /* TransistorHelper in Resources */ = {isa = PBXBuildFile; fileRef = 923B9851130883A80057761F /* TransistorHelper */; };
+		963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DA145EF16D00423081 /* SPMediaKeyTap.m */; };
+		963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */; };
+		963571E2145EF47F00423081 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963571E1145EF47F00423081 /* Carbon.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,11 @@
 		923B9A2B1308954C0057761F /* play_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_over.png; sourceTree = "<group>"; };
 		923B9A36130896610057761F /* TRArtworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRArtworkView.h; sourceTree = "<group>"; };
 		923B9A37130896610057761F /* TRArtworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRArtworkView.m; sourceTree = "<group>"; };
+		963571D9145EF16D00423081 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
+		963571DA145EF16D00423081 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
+		963571DE145EF2E800423081 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
+		963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
+		963571E1145EF47F00423081 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963571E2145EF47F00423081 /* Carbon.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +106,7 @@
 			children = (
 				923B9855130883BA0057761F /* TransistorHelper */,
 				923B97E5130876CC0057761F /* Pianobar */,
+				963571D7145EF15400423081 /* MediaKeyTap */,
 				923B97C2130873D70057761F /* Views */,
 				256AC3D80F4B6AC300CF3369 /* TRAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* TRAppDelegate.m */,
@@ -111,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				963571E1145EF47F00423081 /* Carbon.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -213,6 +224,17 @@
 			name = TransistorHelper;
 			sourceTree = "<group>";
 		};
+		963571D7145EF15400423081 /* MediaKeyTap */ = {
+			isa = PBXGroup;
+			children = (
+				963571D9145EF16D00423081 /* SPMediaKeyTap.h */,
+				963571DA145EF16D00423081 /* SPMediaKeyTap.m */,
+				963571DE145EF2E800423081 /* NSObject+SPInvocationGrabbing.h */,
+				963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */,
+			);
+			name = MediaKeyTap;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -308,6 +330,8 @@
 				923B97E1130875110057761F /* TRMainWindowController.m in Sources */,
 				923B97EF130876F50057761F /* TRPianobarManager.m in Sources */,
 				923B9A38130896610057761F /* TRArtworkView.m in Sources */,
+				963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */,
+				963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

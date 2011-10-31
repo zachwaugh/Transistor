@@ -258,7 +258,7 @@ void SigPipeHandler(int s)
 }
 
 
-- (void)release
+- (oneway void)release
 {
   //do nothing
 }
