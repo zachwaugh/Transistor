@@ -12,12 +12,27 @@
 
 @implementation TRAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
++(void)initialize;
 {
-  windowController = [[TRMainWindowController alloc] initWithWindowNibName:@"TRMainWindow"];
-  [windowController showWindow:self];
+	if ([self class] != [TRAppDelegate class]) return;
+	
+	// Register defaults for the whitelist of apps that want to use media keys
+	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+															 [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
+															 nil]];
 }
 
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+	windowController = [[TRMainWindowController alloc] initWithWindowNibName:@"TRMainWindow"];
+	[windowController showWindow:self];
+	
+	keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
+	if ([SPMediaKeyTap usesGlobalMediaKeyTap])
+		[keyTap startWatchingMediaKeys];
+	else
+		NSLog(@"Media key monitoring disabled");
+}
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
@@ -58,7 +73,7 @@
 - (void)sendEvent:(NSEvent *)theEvent
 {
 	// If event tap is not installed, handle events that reach the app instead
-	BOOL shouldHandleMediaKeyEventLocally = [SPMediaKeyTap usesGlobalMediaKeyTap];
+	BOOL shouldHandleMediaKeyEventLocally = ![SPMediaKeyTap usesGlobalMediaKeyTap];
 	
 	if(shouldHandleMediaKeyEventLocally && [theEvent type] == NSSystemDefined && [theEvent subtype] == SPSystemDefinedEventMediaKeys) {
 		[(id)[self delegate] mediaKeyTap:nil receivedMediaKeyEvent:theEvent];
