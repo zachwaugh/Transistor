@@ -7,12 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SPMediaKeyTap.h"
 
 @class TRMainWindowController;
 
 @interface TRAppDelegate : NSObject <NSApplicationDelegate>
 {
   TRMainWindowController *windowController;
+  SPMediaKeyTap *keyTap;
 }
 
+@end
+
+@interface TRApp : NSApplication
 @end
