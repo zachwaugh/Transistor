@@ -64,11 +64,10 @@
 		switch (keyCode) {
 			case NX_KEYTYPE_PLAY:
 				[controller pause:nil];
-				[self sendGrowlNotification:nil];
+				[self sendGrowlNotification];
 				break;
 			case NX_KEYTYPE_FAST:
 				[controller next:nil];
-				[self sendGrowlNotification:nil];
 				break;
 			default:
 				break;
@@ -76,12 +75,12 @@
 	}
 }
 
-- (void)sendGrowlNotification:(NSData *)iconData
+- (void)sendGrowlNotification
 {
 	TRMainWindowController *controller = (TRMainWindowController*)windowController;
 	NSString *title;
 	NSString *description;
-	
+	NSData *iconData;
 	
 	if ([controller paused]) {
 		title = [[NSRunningApplication currentApplication] localizedName];
@@ -90,9 +89,7 @@
 	} else {
 		title = [[controller song] stringValue];
 		description = [NSString stringWithFormat:@"%@ - %@", [[controller artist] stringValue], [[controller album] stringValue]];
-		if (iconData == nil) {
-			iconData = [[[controller artwork] image] TIFFRepresentation];
-		}
+		iconData = [[[controller artwork] image] TIFFRepresentation];
 	}
 	
 	[GrowlApplicationBridge notifyWithTitle:title

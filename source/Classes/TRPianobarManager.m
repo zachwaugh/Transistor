@@ -35,7 +35,7 @@ NSString * const TransistorSelectStationNotification = @"TransistorSelectStation
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outputAvailable:) name:NSFileHandleReadCompletionNotification object:nil];
 		
 		// Notification for data from TransistorHelper via pianobar event_command
-		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSongStartEvent:) name:@"TransistorSongStartEventNotification" object:nil];	
+		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSongStartEvent:) name:@"TransistorSongStartEventNotification" object:nil suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];	
 		
 		// Info about current song
 		currentArtist = @"";
@@ -154,7 +154,7 @@ void SigPipeHandler(int s)
 	{
 		self.currentTime = [cleaned stringByReplacingOccurrencesOfString:@"#  " withString:@""];
 	}
-	else if ([cleaned rangeOfString:@"Username"].location != NSNotFound)
+	else if ([cleaned rangeOfString:@"Email"].location != NSNotFound)
 	{
 		// Not using at the moment, username should be in ~/.config/pianobar/config
 		[self sendCommand:username];

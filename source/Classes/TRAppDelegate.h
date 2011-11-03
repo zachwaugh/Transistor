@@ -17,7 +17,7 @@
 	TRMainWindowController *windowController;
 	SPMediaKeyTap *keyTap;
 }
-- (void)sendGrowlNotification:(NSData *)iconData;
+- (void)sendGrowlNotification;
 @end
 
 @interface TRApp : NSApplication

@@ -25,10 +25,11 @@
 @property (weak) IBOutlet NSButton *pauseButton;
 @property (unsafe_unretained) IBOutlet NSWindow *stationsWindow;
 @property (unsafe_unretained) IBOutlet NSWindow *signInWindow;
-@property (unsafe_unretained) IBOutlet NSTextView *stations;
-@property (weak) IBOutlet NSTextField *station;
+@property (weak) IBOutlet NSMenu *stationMenu;
+@property (weak) IBOutlet NSPopUpButton *stationButton;
 @property (weak) IBOutlet NSTextField *usernameField;
 @property (weak) IBOutlet NSTextField *passwordField;
+@property (weak) IBOutlet NSButton *rememberMe;
 @property (assign) BOOL paused;
 
 

@@ -27,6 +27,10 @@
 		963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DA145EF16D00423081 /* SPMediaKeyTap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		963571E2145EF47F00423081 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963571E1145EF47F00423081 /* Carbon.framework */; };
+		9690581A1462801000AC7123 /* pandora_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A621F21342BD4600F852F5 /* pandora_logo.png */; };
+		9690581E1462873400AC7123 /* CustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9690581D1462873400AC7123 /* CustomWindow.m */; };
+		96905821146288B800AC7123 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96905820146288B800AC7123 /* DraggableView.m */; };
+		96905824146289D400AC7123 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96905823146289D400AC7123 /* DraggableImageView.m */; };
 		96AB6B3514624F3700F6DF91 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB6B3214624F1F00F6DF91 /* Growl.framework */; };
 		96AB6B39146250C100F6DF91 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */; };
 		96AB6B3B146254FF00F6DF91 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96AB6B3214624F1F00F6DF91 /* Growl.framework */; };
@@ -89,6 +93,12 @@
 		963571DE145EF2E800423081 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
 		963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
 		963571E1145EF47F00423081 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		9690581C1462873400AC7123 /* CustomWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomWindow.h; sourceTree = "<group>"; };
+		9690581D1462873400AC7123 /* CustomWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomWindow.m; sourceTree = "<group>"; };
+		9690581F146288B800AC7123 /* DraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableView.h; sourceTree = "<group>"; };
+		96905820146288B800AC7123 /* DraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
+		96905822146289D400AC7123 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
+		96905823146289D400AC7123 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
 		96AB6B3214624F1F00F6DF91 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		96AB6B3C14626DBA00F6DF91 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
@@ -215,6 +225,12 @@
 		923B97C2130873D70057761F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9690581F146288B800AC7123 /* DraggableView.h */,
+				96905820146288B800AC7123 /* DraggableView.m */,
+				96905822146289D400AC7123 /* DraggableImageView.h */,
+				96905823146289D400AC7123 /* DraggableImageView.m */,
+				9690581C1462873400AC7123 /* CustomWindow.h */,
+				9690581D1462873400AC7123 /* CustomWindow.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -329,6 +345,7 @@
 				923B9A2E1308954C0057761F /* play_over.png in Resources */,
 				96AB6B39146250C100F6DF91 /* Growl Registration Ticket.growlRegDict in Resources */,
 				96AB6B3D14626DBA00F6DF91 /* Icon.icns in Resources */,
+				9690581A1462801000AC7123 /* pandora_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +362,9 @@
 				923B97EF130876F50057761F /* TRPianobarManager.m in Sources */,
 				963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */,
 				963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */,
+				9690581E1462873400AC7123 /* CustomWindow.m in Sources */,
+				96905821146288B800AC7123 /* DraggableView.m in Sources */,
+				96905824146289D400AC7123 /* DraggableImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,7 +410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -418,7 +438,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -490,7 +510,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -506,7 +526,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

@@ -13,8 +13,8 @@
 
 @implementation TRMainWindowController
 
-@synthesize song, artist, album, time, artwork, paused, pauseButton, stations, station, stationsWindow;
-@synthesize signInWindow, usernameField, passwordField;
+@synthesize song, artist, album, time, artwork, paused, pauseButton, stationMenu, stationButton, stationsWindow;
+@synthesize signInWindow, usernameField, passwordField, rememberMe;
 
 - (void)dealloc
 {
@@ -22,21 +22,30 @@
 	
 }
 
-
-- (void)awakeFromNib
+- (void)windowDidLoad
 {
-	// Keep reference to TRPianobarManager, which also automatically starts pianobar
 	pianobar = [TRPianobarManager sharedManager];
-	// Gives window time to load otherwise modal will not slide
-	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(showSignIn) userInfo:nil repeats:NO];
-	
 	[pianobar addObserver:self forKeyPath:@"currentArtist" options:NSKeyValueObservingOptionNew context:nil];
 	[pianobar addObserver:self forKeyPath:@"currentSong" options:NSKeyValueObservingOptionNew context:nil];
 	[pianobar addObserver:self forKeyPath:@"currentAlbum" options:NSKeyValueObservingOptionNew context:nil];
 	[pianobar addObserver:self forKeyPath:@"currentTime" options:NSKeyValueObservingOptionNew context:nil];
 	[pianobar addObserver:self forKeyPath:@"currentArtworkURL" options:NSKeyValueObservingOptionNew context:nil];
+	
+	[self.artist setStringValue:@""];
+	[self.song setStringValue:@""];
+	[self.album setStringValue:@""];
+	[self.time setStringValue:@"-00:00/00:00"];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([defaults boolForKey:@"remember"] && [defaults objectForKey:@"username"] && [defaults objectForKey:@"password"]) {
+		[pianobar setUsername:[defaults objectForKey:@"username"]];
+		[pianobar setPassword:[defaults objectForKey:@"password"]];
+		[pianobar launch];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pianobarNotification:) name:nil object:pianobar];
+	} else {
+		[self showSignIn];
+	}
 }
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -50,18 +59,22 @@
 	if ([keyPath isEqualToString:@"currentArtist"])
 	{
 		[self.artist setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+		[self.artist setNeedsDisplay];
 	}
 	else if ([keyPath isEqualToString:@"currentSong"])
 	{
 		[self.song setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+		[self.song setNeedsDisplay];
 	}
 	else if ([keyPath isEqualToString:@"currentAlbum"])
 	{
 		[self.album setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+		[self.album setNeedsDisplay];
 	}
 	else if ([keyPath isEqualToString:@"currentTime"])
 	{
 		[self.time setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+		[self.time setNeedsDisplay];
 	}
 	if ([keyPath isEqualToString:@"currentArtworkURL"])
 	{
@@ -75,18 +88,44 @@
 	if ([notification name] == TransistorSelectStationNotification)
 	{
 		[self showStations];
-		[self.stations setString:[[notification userInfo] objectForKey:@"stations"]];
+		[self.stationMenu removeAllItems];
+		NSArray *lines = [[[notification userInfo] objectForKey:@"stations"] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+		for (NSString *line in lines) {
+			NSRange range = [line rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"Qq"]];
+			NSString *name = [line stringByReplacingCharactersInRange:NSMakeRange(0, range.location+range.length) withString:@""];
+			name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+			[self.stationMenu addItemWithTitle:name action:nil keyEquivalent:@""];
+		}
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		if ([defaults objectForKey:@"station"]) {
+			[self.stationButton selectItemAtIndex:[[defaults objectForKey:@"station"] integerValue]];
+		}
 	}
 }
 
 - (void)updateArtworkWithURL:(NSURL *)artworkURL
 {
+	if (artworkURL == nil) {
+		[self.artwork setImage:[NSImage imageNamed:@"Icon.icns"]];
+		[(TRAppDelegate*)[[NSApplication sharedApplication] delegate] sendGrowlNotification];
+		[[self.artwork animator] setAlphaValue:1.0];
+		return;
+	}
+	
 	[[self.artwork animator] setAlphaValue:0.0];
 	
 	imageData = [NSMutableData data];
 	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:artworkURL] delegate:self];
 }
 
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+	[self.artwork setImage:[NSImage imageNamed:@"Icon.icns"]];
+	[(TRAppDelegate*)[[NSApplication sharedApplication] delegate] sendGrowlNotification];
+	[[self.artwork animator] setAlphaValue:1.0];
+	imageData = nil;
+}
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
@@ -97,9 +136,10 @@
 // Update image and fade in
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	[(TRAppDelegate*)[[NSApplication sharedApplication] delegate] sendGrowlNotification:imageData];
 	[self.artwork setImage:[[NSImage alloc] initWithData:imageData]];
+	[(TRAppDelegate*)[[NSApplication sharedApplication] delegate] sendGrowlNotification];
 	[[self.artwork animator] setAlphaValue:1.0];
+	imageData = nil;
 }
 
 
@@ -160,6 +200,14 @@
 
 - (void)sheetDidEnd
 {
+	if (rememberMe.state) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		[defaults setBool:YES forKey:@"remember"];
+		[defaults setObject:[usernameField stringValue] forKey:@"username"];
+		[defaults setObject:[passwordField stringValue] forKey:@"password"];
+		[defaults synchronize];
+	}
+	
 	[pianobar setUsername:[usernameField stringValue]];
 	[pianobar setPassword:[passwordField stringValue]];
 	[pianobar launch];
@@ -169,7 +217,11 @@
 
 - (void)didSelectStation:(id)sender
 {
-	[pianobar sendCommand:[station stringValue]];
+	NSString *stationIndex = [NSString stringWithFormat:@"%d", [stationButton indexOfSelectedItem]];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:stationIndex forKey:@"station"];
+	[defaults synchronize];
+	[pianobar sendCommand:stationIndex];
 	[NSApp endSheet:stationsWindow];
 	[stationsWindow orderOut:self];
 }
