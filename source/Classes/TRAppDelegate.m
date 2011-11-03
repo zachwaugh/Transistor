@@ -9,7 +9,6 @@
 #import "TRAppDelegate.h"
 #import "TRPianobarManager.h"
 #import "TRMainWindowController.h"
-#import "TRArtworkView.h"
 
 @implementation TRAppDelegate
 
