@@ -7,32 +7,26 @@
 //
 
 #import "TRArtworkView.h"
+#import "TRAppDelegate.h"
 
 @implementation TRArtworkView
 
 @synthesize artwork;
 
-- (void)dealloc
-{
-  [artwork release];
-  artwork = nil;
-  
-  [super dealloc];
-}
 
 
 - (void)drawRect:(NSRect)dirtyRect
 {
   if (self.artwork != nil)
   {
-    NSShadow *shadow = [[NSShadow alloc] init];
-    [shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.5]];
-    [shadow setShadowOffset:NSMakeSize(0, -3)];
-    [shadow setShadowBlurRadius:5.0];
-    [shadow set];
+//    NSShadow *shadow = [[NSShadow alloc] init];
+//    [shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.5]];
+//    [shadow setShadowOffset:NSMakeSize(0, -3)];
+//    [shadow setShadowBlurRadius:5.0];
+//    [shadow set];
     
-    [self.artwork drawInRect:NSMakeRect(5, 0, 130, 130) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
-    [shadow release];
+    [self.artwork drawInRect:NSMakeRect(0, 0, 160, 160) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
+//    [shadow release];
   }
 }
 
@@ -51,7 +45,7 @@
   
   [[self animator] setAlphaValue:0.0];
   
-  imageData = [[NSMutableData data] retain];
+  imageData = [NSMutableData data];
   [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:artworkURL] delegate:self];
 }
 
@@ -65,10 +59,10 @@
 // Update image and fade in
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-  self.artwork = [[[NSImage alloc] initWithData:imageData] autorelease];
-  [self setNeedsDisplay:YES];
-  [[self animator] setAlphaValue:1.0];
-  [imageData release];
+	[(TRAppDelegate*)[[NSApplication sharedApplication] delegate] sendGrowlNotification:imageData];
+	self.artwork = [[NSImage alloc] initWithData:imageData];
+	[self setNeedsDisplay:YES];
+	[[self animator] setAlphaValue:1.0];
 }
 
 @end

@@ -7,16 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Growl/Growl.h>
 #import "SPMediaKeyTap.h"
 
 @class TRMainWindowController;
 
-@interface TRAppDelegate : NSObject <NSApplicationDelegate>
+@interface TRAppDelegate : NSObject <NSApplicationDelegate, GrowlApplicationBridgeDelegate>
 {
-  TRMainWindowController *windowController;
-  SPMediaKeyTap *keyTap;
+	TRMainWindowController *windowController;
+	SPMediaKeyTap *keyTap;
 }
-
+- (void)sendGrowlNotification:(NSData *)iconData;
 @end
 
 @interface TRApp : NSApplication

@@ -12,41 +12,44 @@
 
 @interface TRMainWindowController : NSWindowController
 {
-    NSTextField *song;
-    NSTextField *artist;
-    NSTextField *album;
-    NSTextField *time;
-    TRArtworkView *artwork;
-    NSButton *pauseButton;
+    NSTextField *__weak song;
+    NSTextField *__weak artist;
+    NSTextField *__weak album;
+    NSTextField *__weak time;
+    NSImageView *__weak artwork;
+    NSButton *__weak pauseButton;
     
     BOOL paused;
     TRPianobarManager *pianobar;
+	
+	NSMutableData *imageData;
     
     // Stations
-    NSWindow *stationsWindow;
-    NSWindow *signInWindow;
-    NSTextView *stations;
-    NSTextField *station;
-    NSTextField *usernameField;
-    NSTextField *passwordField;
+    NSWindow *__unsafe_unretained stationsWindow;
+    NSWindow *__unsafe_unretained signInWindow;
+    NSTextView *__unsafe_unretained stations;
+    NSTextField *__weak station;
+    NSTextField *__weak usernameField;
+    NSTextField *__weak passwordField;
 }
 
 
-@property (assign) IBOutlet NSTextField *song;
-@property (assign) IBOutlet NSTextField *artist;
-@property (assign) IBOutlet NSTextField *album;
-@property (assign) IBOutlet NSTextField *time;
-@property (assign) IBOutlet TRArtworkView *artwork;
-@property (assign) IBOutlet NSButton *pauseButton;
-@property (assign) IBOutlet NSWindow *stationsWindow;
-@property (assign) IBOutlet NSWindow *signInWindow;
-@property (assign) IBOutlet NSTextView *stations;
-@property (assign) IBOutlet NSTextField *station;
-@property (assign) IBOutlet NSTextField *usernameField;
-@property (assign) IBOutlet NSTextField *passwordField;
+@property (weak) IBOutlet NSTextField *song;
+@property (weak) IBOutlet NSTextField *artist;
+@property (weak) IBOutlet NSTextField *album;
+@property (weak) IBOutlet NSTextField *time;
+@property (weak) IBOutlet NSImageView *artwork;
+@property (weak) IBOutlet NSButton *pauseButton;
+@property (unsafe_unretained) IBOutlet NSWindow *stationsWindow;
+@property (unsafe_unretained) IBOutlet NSWindow *signInWindow;
+@property (unsafe_unretained) IBOutlet NSTextView *stations;
+@property (weak) IBOutlet NSTextField *station;
+@property (weak) IBOutlet NSTextField *usernameField;
+@property (weak) IBOutlet NSTextField *passwordField;
 @property (assign) BOOL paused;
 
 
+- (void)updateArtworkWithURL:(NSURL *)artworkURL;
 - (void)pause:(id)sender;
 - (void)next:(id)sender;
 - (void)didSelectStation:(id)sender;

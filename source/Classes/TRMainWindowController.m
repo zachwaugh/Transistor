@@ -8,7 +8,7 @@
 
 #import "TRMainWindowController.h"
 #import "TRPianobarManager.h"
-#import "TRArtworkView.h"
+#import "TRAppDelegate.h"
 
 
 @implementation TRMainWindowController
@@ -18,9 +18,8 @@
 
 - (void)dealloc
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-  
-  [super dealloc];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 }
 
 
@@ -35,66 +34,89 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-  NSObject *newValue = [change objectForKey:NSKeyValueChangeNewKey];
-  NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
-  [shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.35]];
-  [shadow setShadowOffset:NSMakeSize(0, 1)];
-  
-  NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:shadow, NSShadowAttributeName, nil];
-  
-  if ([keyPath isEqualToString:@"currentArtist"])
-  {
-    [self.artist setAttributedStringValue:[[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes] autorelease]];
-  }
-  else if ([keyPath isEqualToString:@"currentSong"])
-  {
-    [self.song setAttributedStringValue:[[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes] autorelease]];
-  }
-  else if ([keyPath isEqualToString:@"currentAlbum"])
-  {
-    [self.album setAttributedStringValue:[[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes] autorelease]];
-  }
-  else if ([keyPath isEqualToString:@"currentTime"])
-  {
-    [self.time setAttributedStringValue:[[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes] autorelease]];
-  }
-  if ([keyPath isEqualToString:@"currentArtworkURL"])
-  {
-    [self.artwork setArtworkURL:(NSURL *)newValue];
-  }
+	NSObject *newValue = [change objectForKey:NSKeyValueChangeNewKey];
+	NSShadow *shadow = [[NSShadow alloc] init];
+	[shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.35]];
+	[shadow setShadowOffset:NSMakeSize(0, 1)];
+	
+	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:shadow, NSShadowAttributeName, nil];
+	
+	if ([keyPath isEqualToString:@"currentArtist"])
+	{
+		[self.artist setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+	}
+	else if ([keyPath isEqualToString:@"currentSong"])
+	{
+		[self.song setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+	}
+	else if ([keyPath isEqualToString:@"currentAlbum"])
+	{
+		[self.album setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+	}
+	else if ([keyPath isEqualToString:@"currentTime"])
+	{
+		[self.time setAttributedStringValue:[[NSAttributedString alloc] initWithString:(NSString *)newValue attributes:attributes]];
+	}
+	if ([keyPath isEqualToString:@"currentArtworkURL"])
+	{
+		[self updateArtworkWithURL:(NSURL *)newValue];
+	}
 }
 
 
 - (void)pianobarNotification:(NSNotification *)notification
 {
-  if ([notification name] == TransistorSelectStationNotification)
-  {
-    [self showStations];
-    [self.stations setString:[[notification userInfo] objectForKey:@"stations"]];
-  }
+	if ([notification name] == TransistorSelectStationNotification)
+	{
+		[self showStations];
+		[self.stations setString:[[notification userInfo] objectForKey:@"stations"]];
+	}
+}
+
+- (void)updateArtworkWithURL:(NSURL *)artworkURL
+{
+	[[self.artwork animator] setAlphaValue:0.0];
+	
+	imageData = [NSMutableData data];
+	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:artworkURL] delegate:self];
 }
 
 
-#pragma -
-#pragma User API
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+	[imageData appendData:data];
+}
+
+
+// Update image and fade in
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	[(TRAppDelegate*)[[NSApplication sharedApplication] delegate] sendGrowlNotification:imageData];
+	[self.artwork setImage:[[NSImage alloc] initWithData:imageData]];
+	[[self.artwork animator] setAlphaValue:1.0];
+}
+
+
+#pragma mark -
+#pragma mark User API
 
 - (void)pause:(id)sender
 {
-  [pianobar sendCommand:PAUSE];
+	[pianobar sendCommand:PAUSE];
 	
-  self.paused = !self.paused;
-  
-  if (self.paused)
-  {
-    [self.pauseButton setImage:[NSImage imageNamed:@"play.png"]];
-    [self.pauseButton setAlternateImage:[NSImage imageNamed:@"play_over.png"]];
-  }
-  else
-  {
-    [self.pauseButton setImage:[NSImage imageNamed:@"pause.png"]];
-    [self.pauseButton setAlternateImage:[NSImage imageNamed:@"pause_over.png"]];
-  }
-
+	self.paused = !self.paused;
+	
+	if (self.paused)
+	{
+		[self.pauseButton setImage:[NSImage imageNamed:@"play.png"]];
+		[self.pauseButton setAlternateImage:[NSImage imageNamed:@"play_over.png"]];
+	}
+	else
+	{
+		[self.pauseButton setImage:[NSImage imageNamed:@"pause.png"]];
+		[self.pauseButton setAlternateImage:[NSImage imageNamed:@"pause_over.png"]];
+	}
+	
 }
 
 
@@ -106,7 +128,7 @@
         [self.pauseButton setImage:[NSImage imageNamed:@"pause.png"]];
         [self.pauseButton setAlternateImage:[NSImage imageNamed:@"pause_over.png"]];
     }
-  [pianobar sendCommand:NEXT];
+	[pianobar sendCommand:NEXT];
 }
 
 
@@ -148,9 +170,9 @@
 
 - (void)didSelectStation:(id)sender
 {
-  [pianobar sendCommand:[station stringValue]];
-  [NSApp endSheet:stationsWindow];
-  [stationsWindow orderOut:self];
+	[pianobar sendCommand:[station stringValue]];
+	[NSApp endSheet:stationsWindow];
+	[stationsWindow orderOut:self];
 }
 
 @end

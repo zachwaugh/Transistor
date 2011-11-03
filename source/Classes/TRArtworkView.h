@@ -15,7 +15,7 @@
   NSMutableData *imageData;
 }
 
-@property (retain) NSImage *artwork;
+@property (strong) NSImage *artwork;
 
 - (void)setArtworkURL:(NSURL *)artworkURL;
 

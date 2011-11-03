@@ -9,6 +9,7 @@
 #import "TRAppDelegate.h"
 #import "TRPianobarManager.h"
 #import "TRMainWindowController.h"
+#import "TRArtworkView.h"
 
 @implementation TRAppDelegate
 
@@ -20,6 +21,18 @@
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 															 [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
 															 nil]];
+}
+
+- (void)awakeFromNib
+{
+	NSBundle *myBundle = [NSBundle bundleForClass:[TRAppDelegate class]];
+	NSString *growlPath = [[myBundle privateFrameworksPath] stringByAppendingPathComponent:@"Growl.framework"];
+	NSBundle *growlBundle = [NSBundle bundleWithPath:growlPath];
+	if (growlBundle && [growlBundle load]) {
+		[GrowlApplicationBridge setGrowlDelegate:self];
+	} else {
+		NSLog(@"Could not load Growl.framework");
+	}
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -36,7 +49,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-  [[TRPianobarManager sharedManager] quit];
+	[[TRPianobarManager sharedManager] quit];
 }
 
 -(void)mediaKeyTap:(SPMediaKeyTap*)keyTap receivedMediaKeyEvent:(NSEvent*)event;
@@ -46,26 +59,52 @@
 	int keyCode = (([event data1] & 0xFFFF0000) >> 16);
 	int keyFlags = ([event data1] & 0x0000FFFF);
 	BOOL keyIsPressed = (((keyFlags & 0xFF00) >> 8)) == 0xA;
-	int keyRepeat = (keyFlags & 0x1);
 	
 	if (keyIsPressed) {
 		TRMainWindowController *controller = (TRMainWindowController*)windowController;
-		NSString *debugString = [NSString stringWithFormat:@"%@", keyRepeat?@", repeated.":@"."];
 		switch (keyCode) {
 			case NX_KEYTYPE_PLAY:
-				[controller pause:nil]; 
-				debugString = [@"Play/pause pressed" stringByAppendingString:debugString];
+				[controller pause:nil];
+				[self sendGrowlNotification:nil];
 				break;
 			case NX_KEYTYPE_FAST:
 				[controller next:nil];
-				debugString = [@"Ffwd pressed" stringByAppendingString:debugString];
+				[self sendGrowlNotification:nil];
 				break;
 			default:
 				break;
 		}
-		NSLog(@"%@", debugString);
 	}
 }
+
+- (void)sendGrowlNotification:(NSData *)iconData
+{
+	TRMainWindowController *controller = (TRMainWindowController*)windowController;
+	NSString *title;
+	NSString *description;
+	
+	
+	if ([controller paused]) {
+		title = [[NSRunningApplication currentApplication] localizedName];
+		description = @"Paused";
+		iconData = nil;
+	} else {
+		title = [[controller song] stringValue];
+		description = [NSString stringWithFormat:@"%@ - %@", [[controller artist] stringValue], [[controller album] stringValue]];
+		if (iconData == nil) {
+			iconData = [[[controller artwork] image] TIFFRepresentation];
+		}
+	}
+	
+	[GrowlApplicationBridge notifyWithTitle:title
+								description:description
+						   notificationName:@"Track Changed"
+								   iconData:iconData
+								   priority:0
+								   isSticky:NO
+							   clickContext:nil];
+}
+
 
 @end
 

@@ -34,14 +34,14 @@ extern NSString * const TransistorSelectStationNotification;
     BOOL stationsStarted;
 }
 
-@property (retain) NSString *currentArtist;
-@property (retain) NSString *currentSong;
-@property (retain) NSString *currentAlbum;
-@property (retain) NSString *currentTime;
-@property (retain) NSURL *currentArtworkURL;
-@property (retain) NSString *stationList;
-@property (retain) NSString *username;
-@property (retain) NSString *password;
+@property (strong) NSString *currentArtist;
+@property (strong) NSString *currentSong;
+@property (strong) NSString *currentAlbum;
+@property (strong) NSString *currentTime;
+@property (strong) NSURL *currentArtworkURL;
+@property (strong) NSString *stationList;
+@property (strong) NSString *username;
+@property (strong) NSString *password;
 
 + (TRPianobarManager *)sharedManager;
 - (void)sendCommand:(NSString *)command;
