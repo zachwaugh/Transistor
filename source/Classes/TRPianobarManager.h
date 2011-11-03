@@ -16,22 +16,22 @@ extern NSString * const TransistorSelectStationNotification;
 
 @interface TRPianobarManager : NSObject
 {
-    NSTask *pianobar;
-    NSPipe *inputPipe;
-    NSPipe *outputPipe;
-    NSFileHandle *readHandle;
-    NSFileHandle *writeHandle;
-    
-    NSString *currentArtist;
-    NSString *currentSong;
-    NSString *currentAlbum;
-    NSString *currentTime;
-    NSURL *currentArtworkURL;
-    NSString *stationList;
-    NSString *username;
-    NSString *password;
-    
-    BOOL stationsStarted;
+	NSTask *pianobar;
+	NSPipe *inputPipe;
+	NSPipe *outputPipe;
+	NSFileHandle *readHandle;
+	NSFileHandle *writeHandle;
+	
+	NSString *currentArtist;
+	NSString *currentSong;
+	NSString *currentAlbum;
+	NSString *currentTime;
+	NSURL *currentArtworkURL;
+	NSString *stationList;
+	NSString *username;
+	NSString *password;
+	
+	BOOL stationsStarted;
 }
 
 @property (strong) NSString *currentArtist;

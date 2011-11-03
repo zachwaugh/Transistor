@@ -12,25 +12,8 @@
 
 @interface TRMainWindowController : NSWindowController
 {
-    NSTextField *__weak song;
-    NSTextField *__weak artist;
-    NSTextField *__weak album;
-    NSTextField *__weak time;
-    NSImageView *__weak artwork;
-    NSButton *__weak pauseButton;
-    
-    BOOL paused;
-    TRPianobarManager *pianobar;
-	
+	TRPianobarManager *pianobar;
 	NSMutableData *imageData;
-    
-    // Stations
-    NSWindow *__unsafe_unretained stationsWindow;
-    NSWindow *__unsafe_unretained signInWindow;
-    NSTextView *__unsafe_unretained stations;
-    NSTextField *__weak station;
-    NSTextField *__weak usernameField;
-    NSTextField *__weak passwordField;
 }
 
 

@@ -12,7 +12,6 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		923B97C5130874150057761F /* TRContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97C4130874150057761F /* TRContentView.m */; };
 		923B97C7130874620057761F /* content_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B97C6130874620057761F /* content_bg.png */; };
 		923B97E1130875110057761F /* TRMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97E0130875110057761F /* TRMainWindowController.m */; };
 		923B97E31308751E0057761F /* TRMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923B97E21308751E0057761F /* TRMainWindow.xib */; };
@@ -24,7 +23,6 @@
 		923B9A2C1308954C0057761F /* next_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A291308954C0057761F /* next_over.png */; };
 		923B9A2D1308954C0057761F /* pause_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2A1308954C0057761F /* pause_over.png */; };
 		923B9A2E1308954C0057761F /* play_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2B1308954C0057761F /* play_over.png */; };
-		923B9A38130896610057761F /* TRArtworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B9A37130896610057761F /* TRArtworkView.m */; };
 		923B9B2A1308ADAA0057761F /* TransistorHelper in Resources */ = {isa = PBXBuildFile; fileRef = 923B9851130883A80057761F /* TransistorHelper */; };
 		963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DA145EF16D00423081 /* SPMediaKeyTap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -72,8 +70,6 @@
 		37A621F21342BD4600F852F5 /* pandora_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pandora_logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Transistor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Transistor-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Transistor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transistor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		923B97C3130874150057761F /* TRContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRContentView.h; sourceTree = "<group>"; };
-		923B97C4130874150057761F /* TRContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = TRContentView.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		923B97C6130874620057761F /* content_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = content_bg.png; sourceTree = "<group>"; };
 		923B97DF130875110057761F /* TRMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRMainWindowController.h; sourceTree = "<group>"; };
 		923B97E0130875110057761F /* TRMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRMainWindowController.m; sourceTree = "<group>"; };
@@ -88,8 +84,6 @@
 		923B9A291308954C0057761F /* next_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_over.png; sourceTree = "<group>"; };
 		923B9A2A1308954C0057761F /* pause_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_over.png; sourceTree = "<group>"; };
 		923B9A2B1308954C0057761F /* play_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_over.png; sourceTree = "<group>"; };
-		923B9A36130896610057761F /* TRArtworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRArtworkView.h; sourceTree = "<group>"; };
-		923B9A37130896610057761F /* TRArtworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRArtworkView.m; sourceTree = "<group>"; };
 		963571D9145EF16D00423081 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
 		963571DA145EF16D00423081 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
 		963571DE145EF2E800423081 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
@@ -221,10 +215,6 @@
 		923B97C2130873D70057761F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				923B97C3130874150057761F /* TRContentView.h */,
-				923B97C4130874150057761F /* TRContentView.m */,
-				923B9A36130896610057761F /* TRArtworkView.h */,
-				923B9A37130896610057761F /* TRArtworkView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -351,10 +341,8 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* TRAppDelegate.m in Sources */,
-				923B97C5130874150057761F /* TRContentView.m in Sources */,
 				923B97E1130875110057761F /* TRMainWindowController.m in Sources */,
 				923B97EF130876F50057761F /* TRPianobarManager.m in Sources */,
-				923B9A38130896610057761F /* TRArtworkView.m in Sources */,
 				963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */,
 				963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */,
 			);

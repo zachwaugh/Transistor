@@ -1,13 +1,13 @@
 #import <Foundation/Foundation.h>
 
 @interface SPInvocationGrabber : NSObject {
-    id _object;
-    NSInvocation *_invocation;
-    int frameCount;
-    char **frameStrings;
-    BOOL backgroundAfterForward;
-    BOOL onMainAfterForward;
-    BOOL waitUntilDone;
+	id _object;
+	NSInvocation *_invocation;
+	int frameCount;
+	char **frameStrings;
+	BOOL backgroundAfterForward;
+	BOOL onMainAfterForward;
+	BOOL waitUntilDone;
 }
 -(id)initWithObject:(id)obj;
 -(id)initWithObject:(id)obj stacktraceSaving:(BOOL)saveStack;

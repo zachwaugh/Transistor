@@ -43,11 +43,11 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 	// Listen to "app switched" event, so that we don't intercept media keys if we
 	// weren't the last "media key listening" app to be active
 	EventTypeSpec eventType = { kEventClassApplication, kEventAppFrontSwitched };
-    OSStatus err = InstallApplicationEventHandler(NewEventHandlerUPP(appSwitched), 1, &eventType, self, &_app_switching_ref);
+	OSStatus err = InstallApplicationEventHandler(NewEventHandlerUPP(appSwitched), 1, &eventType, self, &_app_switching_ref);
 	assert(err == noErr);
 	
 	eventType.eventKind = kEventAppTerminated;
-    err = InstallApplicationEventHandler(NewEventHandlerUPP(appTerminated), 1, &eventType, self, &_app_terminating_ref);
+	err = InstallApplicationEventHandler(NewEventHandlerUPP(appTerminated), 1, &eventType, self, &_app_terminating_ref);
 	assert(err == noErr);
 }
 -(void)stopWatchingAppSwitching;
@@ -69,7 +69,7 @@ static CGEventRef tapEventCallback(CGEventTapProxy proxy, CGEventType type, CGEv
 								  self);
 	assert(_eventPort != NULL);
 	
-    _eventPortSource = CFMachPortCreateRunLoopSource(kCFAllocatorSystemDefault, _eventPort, 0);
+	_eventPortSource = CFMachPortCreateRunLoopSource(kCFAllocatorSystemDefault, _eventPort, 0);
 	assert(_eventPortSource != NULL);
 	
 	// Let's do this in a separate thread so that a slow app doesn't lag the event tap
@@ -153,7 +153,7 @@ static CGEventRef tapEventCallback2(CGEventTapProxy proxy, CGEventType type, CGE
 {
 	SPMediaKeyTap *self = refcon;
 
-    if(type == kCGEventTapDisabledByTimeout) {
+	if(type == kCGEventTapDisabledByTimeout) {
 		NSLog(@"Media key event tap was disabled by timeout");
 		CGEventTapEnable(self->_eventPort, TRUE);
 		return event;
@@ -232,7 +232,7 @@ NSString *kMediaKeyUsingBundleIdentifiersDefaultsKey = @"SPApplicationsNeedingMe
 		NSLog(@"%d: %@", i++, bundleIdentifier);
 	}*/
 	
-    ProcessSerialNumber mySerial, topSerial;
+	ProcessSerialNumber mySerial, topSerial;
 	GetCurrentProcess(&mySerial);
 	[[_mediaKeyAppList objectAtIndex:0] getValue:&topSerial];
 
@@ -269,12 +269,12 @@ static pascal OSStatus appSwitched (EventHandlerCallRef nextHandler, EventRef ev
 {
 	SPMediaKeyTap *self = (id)userData;
 
-    ProcessSerialNumber newSerial;
-    GetFrontProcess(&newSerial);
+	ProcessSerialNumber newSerial;
+	GetFrontProcess(&newSerial);
 	
 	[self appIsNowFrontmost:newSerial];
 		
-    return CallNextEventHandler(nextHandler, evt);
+	return CallNextEventHandler(nextHandler, evt);
 }
 
 static pascal OSStatus appTerminated (EventHandlerCallRef nextHandler, EventRef evt, void* userData)
@@ -295,7 +295,7 @@ static pascal OSStatus appTerminated (EventHandlerCallRef nextHandler, EventRef 
 
 	
 	[self appTerminated:deadPSN];
-    return CallNextEventHandler(nextHandler, evt);
+	return CallNextEventHandler(nextHandler, evt);
 }
 
 @end

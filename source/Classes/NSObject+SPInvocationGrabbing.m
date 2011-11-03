@@ -53,13 +53,13 @@
 	if(backgroundAfterForward)
 		[NSThread detachNewThreadSelector:@selector(runInBackground) toTarget:self withObject:nil];
 	else if(onMainAfterForward)
-        [self performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:waitUntilDone];
+		[self performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:waitUntilDone];
 }
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)inSelector {
 	NSMethodSignature *signature = [super methodSignatureForSelector:inSelector];
 	if (signature == NULL)
 		signature = [_object methodSignatureForSelector:inSelector];
-    
+	
 	return signature;
 }
 
@@ -112,15 +112,15 @@
 }
 -(id)inBackground;
 {
-    SPInvocationGrabber *grabber = [self grab];
+	SPInvocationGrabber *grabber = [self grab];
 	grabber.backgroundAfterForward = YES;
 	return grabber;
 }
 -(id)onMainAsync:(BOOL)async;
 {
-    SPInvocationGrabber *grabber = [self grab];
+	SPInvocationGrabber *grabber = [self grab];
 	grabber.onMainAfterForward = YES;
-    grabber.waitUntilDone = !async;
+	grabber.waitUntilDone = !async;
 	return grabber;
 }
 

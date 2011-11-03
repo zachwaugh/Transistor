@@ -70,24 +70,24 @@ NSString * const TransistorSelectStationNotification = @"TransistorSelectStation
 
 - (void)launch
 {
-    // Basic plumbing for communicating with the pianobar process
-    outputPipe = [NSPipe pipe];
-    inputPipe = [NSPipe pipe];
-    readHandle = [outputPipe fileHandleForReading];
-    writeHandle = [inputPipe fileHandleForWriting];
-    
-    pianobar = [[NSTask alloc] init];
-    
-    // TODO: make path customizable
-    [pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
-    [pianobar setStandardOutput:outputPipe];
-    [pianobar setStandardInput:inputPipe];
-    [pianobar setStandardError:outputPipe];
-    
-    // get data asynchronously and notify when available
-    [readHandle readInBackgroundAndNotify];
-    
-    [pianobar launch];
+	// Basic plumbing for communicating with the pianobar process
+	outputPipe = [NSPipe pipe];
+	inputPipe = [NSPipe pipe];
+	readHandle = [outputPipe fileHandleForReading];
+	writeHandle = [inputPipe fileHandleForWriting];
+	
+	pianobar = [[NSTask alloc] init];
+	
+	// TODO: make path customizable
+	[pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
+	[pianobar setStandardOutput:outputPipe];
+	[pianobar setStandardInput:inputPipe];
+	[pianobar setStandardError:outputPipe];
+	
+	// get data asynchronously and notify when available
+	[readHandle readInBackgroundAndNotify];
+	
+	[pianobar launch];
 }
 
 
@@ -110,14 +110,14 @@ NSString * const TransistorSelectStationNotification = @"TransistorSelectStation
 - (void)sendCommand:(NSString *)command
 {
 	NSLog(@"pianobar: sendCommand: %@", command);
-    // http://stackoverflow.com/questions/1294436/how-to-catch-sigpipe-in-iphone-app
-    signal(SIGPIPE, SigPipeHandler);
+	// http://stackoverflow.com/questions/1294436/how-to-catch-sigpipe-in-iphone-app
+	signal(SIGPIPE, SigPipeHandler);
 	[writeHandle writeData:[[NSString stringWithFormat:@"%@\n", command] dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 void SigPipeHandler(int s)
 {
-    // do your handling
+	// do your handling
 }
 
 
@@ -199,7 +199,7 @@ void SigPipeHandler(int s)
 // Parse into a dictionary so we can get the info we need out easier
 - (void)parseEventInfo:(NSString *)info
 {
-    NSLog(@"event info:%@", info);
+	NSLog(@"event info:%@", info);
 	NSMutableDictionary *data = [NSMutableDictionary dictionary];
 	NSArray *lines = [[info stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@"\n"];
 	
