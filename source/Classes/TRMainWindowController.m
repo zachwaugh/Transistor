@@ -9,12 +9,12 @@
 #import "TRMainWindowController.h"
 #import "TRPianobarManager.h"
 #import "TRAppDelegate.h"
-
+#import "NSObject+PWObject.h"
 
 @implementation TRMainWindowController
 
-@synthesize song, artist, album, time, artwork, paused, pauseButton, stationMenu, stationButton, stationsWindow;
-@synthesize signInWindow, usernameField, passwordField, rememberMe;
+@synthesize song, artist, album, time, artwork, paused, pauseButton, stationMenu, stationButton;
+@synthesize signInWindow, usernameField, passwordField, rememberMe, mainView;
 
 - (void)dealloc
 {
@@ -24,6 +24,10 @@
 
 - (void)windowDidLoad
 {
+	launching = YES;
+	drawerOpen = YES;
+	[self closeDrawer:NO];
+	
 	pianobar = [TRPianobarManager sharedManager];
 	[pianobar addObserver:self forKeyPath:@"currentArtist" options:NSKeyValueObservingOptionNew context:nil];
 	[pianobar addObserver:self forKeyPath:@"currentSong" options:NSKeyValueObservingOptionNew context:nil];
@@ -45,6 +49,27 @@
 	} else {
 		[self showSignIn];
 	}
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+	if ([[NSApplication sharedApplication] isActive] && !didDrag) {
+		if (drawerOpen) {
+			[self closeDrawer:YES];
+		} else {
+			[self openDrawer:YES];
+		}
+	}
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+	didDrag = NO;
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+	didDrag = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -82,23 +107,28 @@
 	}
 }
 
-
 - (void)pianobarNotification:(NSNotification *)notification
 {
 	if ([notification name] == TransistorSelectStationNotification)
 	{
-		[self showStations];
 		[self.stationMenu removeAllItems];
 		NSArray *lines = [[[notification userInfo] objectForKey:@"stations"] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 		for (NSString *line in lines) {
 			NSRange range = [line rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"Qq"]];
-			NSString *name = [line stringByReplacingCharactersInRange:NSMakeRange(0, range.location+range.length) withString:@""];
-			name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-			[self.stationMenu addItemWithTitle:name action:nil keyEquivalent:@""];
+			if (range.location != NSNotFound) {
+				NSString *name = [line stringByReplacingCharactersInRange:NSMakeRange(0, range.location+range.length) withString:@""];
+				name = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+				[self.stationMenu addItemWithTitle:name action:nil keyEquivalent:@""];
+			}
 		}
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		if ([defaults objectForKey:@"station"]) {
+		if ([defaults objectForKey:@"station"] && launching) {
 			[self.stationButton selectItemAtIndex:[[defaults objectForKey:@"station"] integerValue]];
+			NSString *stationIndex = [NSString stringWithFormat:@"%d", stationButton.indexOfSelectedItem];
+			[pianobar sendCommand:stationIndex];
+			launching = NO;
+		} else {
+			[self showStations];
 		}
 	}
 }
@@ -184,7 +214,7 @@
 
 - (void)showStations
 {
-	[NSApp beginSheet:stationsWindow modalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+	[self openDrawer:YES];
 }
 
 - (void)showSignIn
@@ -215,15 +245,63 @@
 }
 
 
-- (void)didSelectStation:(id)sender
+- (IBAction)selectStation:(id)sender
 {
-	NSString *stationIndex = [NSString stringWithFormat:@"%d", [stationButton indexOfSelectedItem]];
+	NSString *stationIndex = [NSString stringWithFormat:@"%d", stationButton.indexOfSelectedItem];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:stationIndex forKey:@"station"];
 	[defaults synchronize];
+	if (!launching) [pianobar sendCommand:STATIONS];
 	[pianobar sendCommand:stationIndex];
-	[NSApp endSheet:stationsWindow];
-	[stationsWindow orderOut:self];
+	launching = NO;
+	[self performBlock:^{
+		[self closeDrawer:YES];
+	} afterDelay:0.7];
+}
+	 
+#pragma mark - Animations
+
+- (void)slideDrawer:(float)offset animated:(BOOL)animated
+{
+	NSTimeInterval duration = (animated) ? 0.3 : 0.0;
+	
+	NSRect frame = [self.window frame];
+	frame.origin.y -= offset;
+	frame.size.height += offset;
+	
+	NSDictionary *windowResize = [NSDictionary dictionaryWithObjectsAndKeys:self.window, NSViewAnimationTargetKey, [NSValue valueWithRect:frame], NSViewAnimationEndFrameKey, nil];
+	
+	NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:windowResize]];
+	
+	[animation setAnimationBlockingMode:NSAnimationBlocking];
+	[animation setAnimationCurve:NSAnimationEaseIn];
+	[animation setDuration:duration];
+	[animation setDelegate:self];
+	[animation startAnimation];
+}
+
+- (void)animationDidEnd:(NSAnimation *)animation
+{
+	if (!drawerOpen) {
+		[self.stationButton setEnabled:NO];
+	}
+}
+
+- (void)closeDrawer:(BOOL)animated
+{
+	if (drawerOpen) {
+		drawerOpen = NO;
+		[self slideDrawer:-60.0 animated:animated];
+	}
+}
+
+- (void)openDrawer:(BOOL)animated
+{
+	if (!drawerOpen) {
+		drawerOpen = YES;
+		[self.stationButton setEnabled:YES];
+		[self slideDrawer:60.0 animated:animated];
+	}
 }
 
 @end

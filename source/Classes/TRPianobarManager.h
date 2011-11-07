@@ -11,6 +11,7 @@
 #define QUIT @"q"
 #define PAUSE @"p"
 #define NEXT @"n"
+#define STATIONS @"s"
 
 extern NSString * const TransistorSelectStationNotification;
 
@@ -32,6 +33,7 @@ extern NSString * const TransistorSelectStationNotification;
 	NSString *password;
 	
 	BOOL stationsStarted;
+	BOOL firstLaunch;
 }
 
 @property (strong) NSString *currentArtist;

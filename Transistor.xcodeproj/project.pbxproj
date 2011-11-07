@@ -31,6 +31,7 @@
 		9690581E1462873400AC7123 /* CustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9690581D1462873400AC7123 /* CustomWindow.m */; };
 		96905821146288B800AC7123 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96905820146288B800AC7123 /* DraggableView.m */; };
 		96905824146289D400AC7123 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96905823146289D400AC7123 /* DraggableImageView.m */; };
+		969192A114689A2900B824A8 /* NSObject+PWObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 969192A014689A2900B824A8 /* NSObject+PWObject.m */; };
 		96AB6B3514624F3700F6DF91 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB6B3214624F1F00F6DF91 /* Growl.framework */; };
 		96AB6B39146250C100F6DF91 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */; };
 		96AB6B3B146254FF00F6DF91 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96AB6B3214624F1F00F6DF91 /* Growl.framework */; };
@@ -99,6 +100,8 @@
 		96905820146288B800AC7123 /* DraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
 		96905822146289D400AC7123 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
 		96905823146289D400AC7123 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
+		9691929F14689A2900B824A8 /* NSObject+PWObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PWObject.h"; sourceTree = "<group>"; };
+		969192A014689A2900B824A8 /* NSObject+PWObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PWObject.m"; sourceTree = "<group>"; };
 		96AB6B3214624F1F00F6DF91 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		96AB6B3C14626DBA00F6DF91 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 				256AC3D90F4B6AC300CF3369 /* TRAppDelegate.m */,
 				923B97DF130875110057761F /* TRMainWindowController.h */,
 				923B97E0130875110057761F /* TRMainWindowController.m */,
+				9691929F14689A2900B824A8 /* NSObject+PWObject.h */,
+				969192A014689A2900B824A8 /* NSObject+PWObject.m */,
 			);
 			name = Classes;
 			path = source/Classes;
@@ -307,6 +312,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Transistor" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -365,6 +373,7 @@
 				9690581E1462873400AC7123 /* CustomWindow.m in Sources */,
 				96905821146288B800AC7123 /* DraggableView.m in Sources */,
 				96905824146289D400AC7123 /* DraggableImageView.m in Sources */,
+				969192A114689A2900B824A8 /* NSObject+PWObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,7 +426,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -429,7 +437,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TransistorHelper;
 			};
 			name = Debug;
@@ -445,7 +452,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -456,7 +462,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TransistorHelper;
 				ZERO_LINK = NO;
 			};
@@ -473,7 +478,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -518,7 +522,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -532,7 +535,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;

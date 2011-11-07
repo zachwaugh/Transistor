@@ -44,6 +44,7 @@ NSString * const TransistorSelectStationNotification = @"TransistorSelectStation
 		currentTime = @"";
 		stationList = @"";
 		stationsStarted = NO;
+		firstLaunch = YES;
 		
 		// Basic plumbing for communicating with the pianobar process
 		/*outputPipe = [[NSPipe pipe] retain];
@@ -109,10 +110,13 @@ NSString * const TransistorSelectStationNotification = @"TransistorSelectStation
 // Sends a command to pianobar via stdin
 - (void)sendCommand:(NSString *)command
 {
+	if (![command isEqualToString:STATIONS]) {
+		command = [command stringByAppendingString:@"\n"];
+	}
 	NSLog(@"pianobar: sendCommand: %@", command);
 	// http://stackoverflow.com/questions/1294436/how-to-catch-sigpipe-in-iphone-app
 	signal(SIGPIPE, SigPipeHandler);
-	[writeHandle writeData:[[NSString stringWithFormat:@"%@\n", command] dataUsingEncoding:NSUTF8StringEncoding]];
+	[writeHandle writeData:[command dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 void SigPipeHandler(int s)
@@ -138,48 +142,56 @@ void SigPipeHandler(int s)
 // Take all the output and figure out what to do with it
 - (void)processOutput:(NSString *)output
 {
-	NSLog(@"raw output:\n%@", output);
+//	NSLog(@"raw output:\n%@", output);
 	
 	// Remove whitespace and newlines from output as well as the character pianobar starts every line with
 	NSString *cleaned = [[[output stringByReplacingOccurrencesOfString:@"\033[2K" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
-	// Concatenate station list output
-	if (stationsStarted)
-	{
-		self.stationList = [self.stationList stringByAppendingFormat:@"%@\n", cleaned];
-	}
+	NSArray *lines = [cleaned componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	
-	// Time lines are prefixed with #
-	if ([cleaned hasPrefix:@"#"])
+	for (NSString *cleaned in lines)
 	{
-		self.currentTime = [cleaned stringByReplacingOccurrencesOfString:@"#  " withString:@""];
-	}
-	else if ([cleaned rangeOfString:@"Email"].location != NSNotFound)
-	{
-		// Not using at the moment, username should be in ~/.config/pianobar/config
-		[self sendCommand:username];
-	}
-	else if ([cleaned rangeOfString:@"Password"].location != NSNotFound) 
-	{
-		// Not using at the moment, password should be in ~/.config/pianobar/config
-		[self sendCommand:password];
-	}
-	else if ([cleaned rangeOfString:@"Get stations"].location != NSNotFound)
-	{
-		// Start of station list output
-		stationsStarted = YES;
-	}
-	else if ([cleaned rangeOfString:@"Select station"].location != NSNotFound)
-	{
-		// End of station list output, prompt for selecting station
-		stationsStarted = NO;
-		
-		// A little more specific cleanup
-		self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"Ok.\n" withString:@""];
-		self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"\n[?] Select station:\n" withString:@""];
-		
-		// Notification that we need to choose a station
-		[[NSNotificationCenter defaultCenter] postNotificationName:TransistorSelectStationNotification object:self userInfo:[NSDictionary dictionaryWithObject:self.stationList forKey:@"stations"]];
+		// Time lines are prefixed with #
+		if ([cleaned hasPrefix:@"#"])
+		{
+			self.currentTime = [cleaned stringByReplacingOccurrencesOfString:@"#  " withString:@""];
+		}
+		else if ([cleaned rangeOfString:@"Email"].location != NSNotFound)
+		{
+			// Not using at the moment, username should be in ~/.config/pianobar/config
+			[self sendCommand:username];
+		}
+		else if ([cleaned rangeOfString:@"Password"].location != NSNotFound) 
+		{
+			// Not using at the moment, password should be in ~/.config/pianobar/config
+			[self sendCommand:password];
+		}
+		else if (firstLaunch && [cleaned rangeOfString:@"Get stations"].location != NSNotFound)
+		{
+			// Start of station list output
+			stationsStarted = YES;
+			firstLaunch = NO;
+		}
+		else if (stationsStarted && [cleaned rangeOfString:@"Select station"].location != NSNotFound)
+		{
+			// End of station list output, prompt for selecting station
+			stationsStarted = NO;
+			
+			// A little more specific cleanup
+			self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"Ok.\n" withString:@""];
+			self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"\n[?] Select station:\n" withString:@""];
+			
+			// Notification that we need to choose a station
+			[[NSNotificationCenter defaultCenter] postNotificationName:TransistorSelectStationNotification object:self userInfo:[NSDictionary dictionaryWithObject:self.stationList forKey:@"stations"]];
+		}
+		else if (stationsStarted)
+		{
+			self.stationList = [self.stationList stringByAppendingFormat:@"%@\n", cleaned];
+		}
+		else
+		{
+			NSLog(@"output:\n%@", output);
+		}
 	}
 }
 
