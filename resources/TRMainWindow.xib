@@ -442,7 +442,7 @@
 					<reference key="NSNextKeyView" ref="1040105639"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">player_window</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -458,7 +458,7 @@
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{480, 195}</string>
 				<object class="NSView" key="NSWindowView" id="366847182">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSImageView" id="785440941">
@@ -631,10 +631,9 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{294, 201}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="785440941"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{480, 217}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -708,14 +707,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">pauseButton</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="88443600"/>
-					</object>
-					<int key="connectionID">214</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">artist</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="13763866"/>
@@ -785,6 +776,14 @@
 						<reference key="destination" ref="1040105639"/>
 					</object>
 					<int key="connectionID">226</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">pauseButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="962885476"/>
+					</object>
+					<int key="connectionID">227</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1005,6 +1004,7 @@
 							<reference ref="829091453"/>
 						</array>
 						<reference key="parent" ref="1040105639"/>
+						<string key="objectName">Play/Pause</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">192</int>
@@ -1013,6 +1013,7 @@
 							<reference ref="152842623"/>
 						</array>
 						<reference key="parent" ref="1040105639"/>
+						<string key="objectName">Next</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">193</int>
@@ -1211,7 +1212,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">226</int>
+			<int key="maxID">227</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
