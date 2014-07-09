@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		923B97C5130874150057761F /* TRContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97C4130874150057761F /* TRContentView.m */; };
 		923B97C7130874620057761F /* content_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B97C6130874620057761F /* content_bg.png */; };
 		923B97E1130875110057761F /* TRMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B97E0130875110057761F /* TRMainWindowController.m */; };
 		923B97E31308751E0057761F /* TRMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923B97E21308751E0057761F /* TRMainWindow.xib */; };
@@ -24,8 +23,19 @@
 		923B9A2C1308954C0057761F /* next_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A291308954C0057761F /* next_over.png */; };
 		923B9A2D1308954C0057761F /* pause_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2A1308954C0057761F /* pause_over.png */; };
 		923B9A2E1308954C0057761F /* play_over.png in Resources */ = {isa = PBXBuildFile; fileRef = 923B9A2B1308954C0057761F /* play_over.png */; };
-		923B9A38130896610057761F /* TRArtworkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923B9A37130896610057761F /* TRArtworkView.m */; };
 		923B9B2A1308ADAA0057761F /* TransistorHelper in Resources */ = {isa = PBXBuildFile; fileRef = 923B9851130883A80057761F /* TransistorHelper */; };
+		963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DA145EF16D00423081 /* SPMediaKeyTap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = 963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		963571E2145EF47F00423081 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963571E1145EF47F00423081 /* Carbon.framework */; };
+		9690581A1462801000AC7123 /* pandora_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A621F21342BD4600F852F5 /* pandora_logo.png */; };
+		9690581E1462873400AC7123 /* CustomWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9690581D1462873400AC7123 /* CustomWindow.m */; };
+		96905821146288B800AC7123 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96905820146288B800AC7123 /* DraggableView.m */; };
+		96905824146289D400AC7123 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96905823146289D400AC7123 /* DraggableImageView.m */; };
+		969192A114689A2900B824A8 /* NSObject+PWObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 969192A014689A2900B824A8 /* NSObject+PWObject.m */; };
+		96AB6B3514624F3700F6DF91 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB6B3214624F1F00F6DF91 /* Growl.framework */; };
+		96AB6B39146250C100F6DF91 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */; };
+		96AB6B3B146254FF00F6DF91 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96AB6B3214624F1F00F6DF91 /* Growl.framework */; };
+		96AB6B3D14626DBA00F6DF91 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 96AB6B3C14626DBA00F6DF91 /* Icon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +47,19 @@
 			remoteInfo = TransistorHelper;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96AB6B3A146254EE00F6DF91 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96AB6B3B146254FF00F6DF91 /* Growl.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -50,11 +73,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		37A621F21342BD4600F852F5 /* pandora_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pandora_logo.png; sourceTree = "<group>"; };
-		37A621F41342BD6600F852F5 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Transistor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Transistor-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Transistor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transistor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		923B97C3130874150057761F /* TRContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRContentView.h; sourceTree = "<group>"; };
-		923B97C4130874150057761F /* TRContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = TRContentView.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		923B97C6130874620057761F /* content_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = content_bg.png; sourceTree = "<group>"; };
 		923B97DF130875110057761F /* TRMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRMainWindowController.h; sourceTree = "<group>"; };
 		923B97E0130875110057761F /* TRMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRMainWindowController.m; sourceTree = "<group>"; };
@@ -69,8 +89,22 @@
 		923B9A291308954C0057761F /* next_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_over.png; sourceTree = "<group>"; };
 		923B9A2A1308954C0057761F /* pause_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_over.png; sourceTree = "<group>"; };
 		923B9A2B1308954C0057761F /* play_over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_over.png; sourceTree = "<group>"; };
-		923B9A36130896610057761F /* TRArtworkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRArtworkView.h; sourceTree = "<group>"; };
-		923B9A37130896610057761F /* TRArtworkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRArtworkView.m; sourceTree = "<group>"; };
+		963571D9145EF16D00423081 /* SPMediaKeyTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMediaKeyTap.h; sourceTree = "<group>"; };
+		963571DA145EF16D00423081 /* SPMediaKeyTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMediaKeyTap.m; sourceTree = "<group>"; };
+		963571DE145EF2E800423081 /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
+		963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
+		963571E1145EF47F00423081 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		9690581C1462873400AC7123 /* CustomWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomWindow.h; sourceTree = "<group>"; };
+		9690581D1462873400AC7123 /* CustomWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomWindow.m; sourceTree = "<group>"; };
+		9690581F146288B800AC7123 /* DraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableView.h; sourceTree = "<group>"; };
+		96905820146288B800AC7123 /* DraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
+		96905822146289D400AC7123 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
+		96905823146289D400AC7123 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
+		9691929F14689A2900B824A8 /* NSObject+PWObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PWObject.h"; sourceTree = "<group>"; };
+		969192A014689A2900B824A8 /* NSObject+PWObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PWObject.m"; sourceTree = "<group>"; };
+		96AB6B3214624F1F00F6DF91 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
+		96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
+		96AB6B3C14626DBA00F6DF91 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = ../Icon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963571E2145EF47F00423081 /* Carbon.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				96AB6B3514624F3700F6DF91 /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,11 +133,14 @@
 			children = (
 				923B9855130883BA0057761F /* TransistorHelper */,
 				923B97E5130876CC0057761F /* Pianobar */,
+				963571D7145EF15400423081 /* MediaKeyTap */,
 				923B97C2130873D70057761F /* Views */,
 				256AC3D80F4B6AC300CF3369 /* TRAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* TRAppDelegate.m */,
 				923B97DF130875110057761F /* TRMainWindowController.h */,
 				923B97E0130875110057761F /* TRMainWindowController.m */,
+				9691929F14689A2900B824A8 /* NSObject+PWObject.h */,
+				969192A014689A2900B824A8 /* NSObject+PWObject.m */,
 			);
 			name = Classes;
 			path = source/Classes;
@@ -111,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				963571E1145EF47F00423081 /* Carbon.framework */,
+				96AB6B3214624F1F00F6DF91 /* Growl.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -166,11 +207,12 @@
 				923B9A0413088FF20057761F /* play.png */,
 				923B97C6130874620057761F /* content_bg.png */,
 				37A621F21342BD4600F852F5 /* pandora_logo.png */,
-				37A621F41342BD6600F852F5 /* Icon.icns */,
+				96AB6B3C14626DBA00F6DF91 /* Icon.icns */,
 				8D1107310486CEB800E47090 /* Transistor-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				923B97E21308751E0057761F /* TRMainWindow.xib */,
+				96AB6B38146250C100F6DF91 /* Growl Registration Ticket.growlRegDict */,
 			);
 			name = Resources;
 			path = resources;
@@ -188,10 +230,12 @@
 		923B97C2130873D70057761F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				923B97C3130874150057761F /* TRContentView.h */,
-				923B97C4130874150057761F /* TRContentView.m */,
-				923B9A36130896610057761F /* TRArtworkView.h */,
-				923B9A37130896610057761F /* TRArtworkView.m */,
+				9690581F146288B800AC7123 /* DraggableView.h */,
+				96905820146288B800AC7123 /* DraggableView.m */,
+				96905822146289D400AC7123 /* DraggableImageView.h */,
+				96905823146289D400AC7123 /* DraggableImageView.m */,
+				9690581C1462873400AC7123 /* CustomWindow.h */,
+				9690581D1462873400AC7123 /* CustomWindow.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -213,6 +257,17 @@
 			name = TransistorHelper;
 			sourceTree = "<group>";
 		};
+		963571D7145EF15400423081 /* MediaKeyTap */ = {
+			isa = PBXGroup;
+			children = (
+				963571D9145EF16D00423081 /* SPMediaKeyTap.h */,
+				963571DA145EF16D00423081 /* SPMediaKeyTap.m */,
+				963571DE145EF2E800423081 /* NSObject+SPInvocationGrabbing.h */,
+				963571DF145EF2E800423081 /* NSObject+SPInvocationGrabbing.m */,
+			);
+			name = MediaKeyTap;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -221,6 +276,7 @@
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Transistor" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
+				96AB6B3A146254EE00F6DF91 /* CopyFiles */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 			);
@@ -256,8 +312,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Transistor" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -292,6 +351,9 @@
 				923B9A2C1308954C0057761F /* next_over.png in Resources */,
 				923B9A2D1308954C0057761F /* pause_over.png in Resources */,
 				923B9A2E1308954C0057761F /* play_over.png in Resources */,
+				96AB6B39146250C100F6DF91 /* Growl Registration Ticket.growlRegDict in Resources */,
+				96AB6B3D14626DBA00F6DF91 /* Icon.icns in Resources */,
+				9690581A1462801000AC7123 /* pandora_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,10 +366,14 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* TRAppDelegate.m in Sources */,
-				923B97C5130874150057761F /* TRContentView.m in Sources */,
 				923B97E1130875110057761F /* TRMainWindowController.m in Sources */,
 				923B97EF130876F50057761F /* TRPianobarManager.m in Sources */,
-				923B9A38130896610057761F /* TRArtworkView.m in Sources */,
+				963571DC145EF16D00423081 /* SPMediaKeyTap.m in Sources */,
+				963571E0145EF2E800423081 /* NSObject+SPInvocationGrabbing.m in Sources */,
+				9690581E1462873400AC7123 /* CustomWindow.m in Sources */,
+				96905821146288B800AC7123 /* DraggableView.m in Sources */,
+				96905824146289D400AC7123 /* DraggableImageView.m in Sources */,
+				969192A114689A2900B824A8 /* NSObject+PWObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,12 +419,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -366,7 +437,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TransistorHelper;
 			};
 			name = Debug;
@@ -375,11 +445,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /usr/local/bin;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -387,7 +462,6 @@
 					"-framework",
 					AppKit,
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TransistorHelper;
 				ZERO_LINK = NO;
 			};
@@ -397,13 +471,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = source/Transistor_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "resources/Transistor-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Transistor;
@@ -415,10 +494,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = source/Transistor_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "resources/Transistor-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Transistor;
@@ -429,26 +514,28 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

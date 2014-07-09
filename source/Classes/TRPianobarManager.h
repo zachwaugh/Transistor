@@ -11,37 +11,39 @@
 #define QUIT @"q"
 #define PAUSE @"p"
 #define NEXT @"n"
+#define STATIONS @"s"
 
 extern NSString * const TransistorSelectStationNotification;
 
 @interface TRPianobarManager : NSObject
 {
-    NSTask *pianobar;
-    NSPipe *inputPipe;
-    NSPipe *outputPipe;
-    NSFileHandle *readHandle;
-    NSFileHandle *writeHandle;
-    
-    NSString *currentArtist;
-    NSString *currentSong;
-    NSString *currentAlbum;
-    NSString *currentTime;
-    NSURL *currentArtworkURL;
-    NSString *stationList;
-    NSString *username;
-    NSString *password;
-    
-    BOOL stationsStarted;
+	NSTask *pianobar;
+	NSPipe *inputPipe;
+	NSPipe *outputPipe;
+	NSFileHandle *readHandle;
+	NSFileHandle *writeHandle;
+	
+	NSString *currentArtist;
+	NSString *currentSong;
+	NSString *currentAlbum;
+	NSString *currentTime;
+	NSURL *currentArtworkURL;
+	NSString *stationList;
+	NSString *username;
+	NSString *password;
+	
+	BOOL stationsStarted;
+	BOOL firstLaunch;
 }
 
-@property (retain) NSString *currentArtist;
-@property (retain) NSString *currentSong;
-@property (retain) NSString *currentAlbum;
-@property (retain) NSString *currentTime;
-@property (retain) NSURL *currentArtworkURL;
-@property (retain) NSString *stationList;
-@property (retain) NSString *username;
-@property (retain) NSString *password;
+@property (strong) NSString *currentArtist;
+@property (strong) NSString *currentSong;
+@property (strong) NSString *currentAlbum;
+@property (strong) NSString *currentTime;
+@property (strong) NSURL *currentArtworkURL;
+@property (strong) NSString *stationList;
+@property (strong) NSString *username;
+@property (strong) NSString *password;
 
 + (TRPianobarManager *)sharedManager;
 - (void)sendCommand:(NSString *)command;

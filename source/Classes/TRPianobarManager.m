@@ -13,8 +13,6 @@
 NSString * const TransistorSelectStationNotification = @"TransistorSelectStationNotification";
 
 
-static TRPianobarManager *sharedPianobarManager = nil;
-
 @interface TRPianobarManager ()
 
 - (void)parseEventInfo:(NSString *)info;
@@ -31,159 +29,170 @@ static TRPianobarManager *sharedPianobarManager = nil;
 
 - (id)init
 {
-  if ((self = [super init]))
-  {
-    // Notification data available from stdout
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outputAvailable:) name:NSFileHandleReadCompletionNotification object:nil];
-    
-    // Notification for data from TransistorHelper via pianobar event_command
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSongStartEvent:) name:@"TransistorSongStartEventNotification" object:nil];	
-    
-    // Info about current song
-    currentArtist = @"";
-    currentSong = @"";
-    currentAlbum = @"";
-    currentTime = @"";
-    stationList = @"";
-    stationsStarted = NO;
-    
-    // Basic plumbing for communicating with the pianobar process
-    /*outputPipe = [[NSPipe pipe] retain];
-    inputPipe = [[NSPipe pipe] retain];
-    readHandle = [outputPipe fileHandleForReading];
-    writeHandle = [inputPipe fileHandleForWriting];
-    
-    pianobar = [[NSTask alloc] init];
-    
-    // TODO: make path customizable
-    [pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
-    [pianobar setStandardOutput:outputPipe];
-    [pianobar setStandardInput:inputPipe];
-    [pianobar setStandardError:outputPipe];
-    
-    // get data asynchronously and notify when available
-    [readHandle readInBackgroundAndNotify];
-    
-    [pianobar launch];*/
-  }
-  
-  return self;
+	if ((self = [super init]))
+	{
+		// Notification data available from stdout
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outputAvailable:) name:NSFileHandleReadCompletionNotification object:nil];
+		
+		// Notification for data from TransistorHelper via pianobar event_command
+		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSongStartEvent:) name:@"TransistorSongStartEventNotification" object:nil suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];	
+		
+		// Info about current song
+		currentArtist = @"";
+		currentSong = @"";
+		currentAlbum = @"";
+		currentTime = @"";
+		stationList = @"";
+		stationsStarted = NO;
+		firstLaunch = YES;
+		
+		// Basic plumbing for communicating with the pianobar process
+		/*outputPipe = [[NSPipe pipe] retain];
+		 inputPipe = [[NSPipe pipe] retain];
+		 readHandle = [outputPipe fileHandleForReading];
+		 writeHandle = [inputPipe fileHandleForWriting];
+		 
+		 pianobar = [[NSTask alloc] init];
+		 
+		 // TODO: make path customizable
+		 [pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
+		 [pianobar setStandardOutput:outputPipe];
+		 [pianobar setStandardInput:inputPipe];
+		 [pianobar setStandardError:outputPipe];
+		 
+		 // get data asynchronously and notify when available
+		 [readHandle readInBackgroundAndNotify];
+		 
+		 [pianobar launch];*/
+	}
+	
+	return self;
 }
 
 - (void)launch
 {
-    // Basic plumbing for communicating with the pianobar process
-    outputPipe = [[NSPipe pipe] retain];
-    inputPipe = [[NSPipe pipe] retain];
-    readHandle = [outputPipe fileHandleForReading];
-    writeHandle = [inputPipe fileHandleForWriting];
-    
-    pianobar = [[NSTask alloc] init];
-    
-    // TODO: make path customizable
-    [pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
-    [pianobar setStandardOutput:outputPipe];
-    [pianobar setStandardInput:inputPipe];
-    [pianobar setStandardError:outputPipe];
-    
-    // get data asynchronously and notify when available
-    [readHandle readInBackgroundAndNotify];
-    
-    [pianobar launch];
+	// Basic plumbing for communicating with the pianobar process
+	outputPipe = [NSPipe pipe];
+	inputPipe = [NSPipe pipe];
+	readHandle = [outputPipe fileHandleForReading];
+	writeHandle = [inputPipe fileHandleForWriting];
+	
+	pianobar = [[NSTask alloc] init];
+	
+	// TODO: make path customizable
+	[pianobar setLaunchPath:@"/usr/local/bin/pianobar"];
+	[pianobar setStandardOutput:outputPipe];
+	[pianobar setStandardInput:inputPipe];
+	[pianobar setStandardError:outputPipe];
+	
+	// get data asynchronously and notify when available
+	[readHandle readInBackgroundAndNotify];
+	
+	[pianobar launch];
 }
 
 
 // Quit pianobar process
 - (void)quit
 {
-  NSLog(@"quitting pianobar");
-  
-  if ([pianobar isRunning])
-  {
-    [self sendCommand:QUIT];
-    [pianobar terminate];
-  }
- 
-  [pianobar release];
-  pianobar = nil;
+	NSLog(@"quitting pianobar");
+	
+	if ([pianobar isRunning])
+	{
+		[self sendCommand:QUIT];
+		[pianobar terminate];
+	}
+	
+	pianobar = nil;
 }
 
 
 // Sends a command to pianobar via stdin
 - (void)sendCommand:(NSString *)command
 {
-  NSLog(@"pianobar: sendCommand: %@", command);
-    // http://stackoverflow.com/questions/1294436/how-to-catch-sigpipe-in-iphone-app
-    signal(SIGPIPE, SigPipeHandler);
-  [writeHandle writeData:[[NSString stringWithFormat:@"%@\n", command] dataUsingEncoding:NSUTF8StringEncoding]];
+	if (![command isEqualToString:STATIONS]) {
+		command = [command stringByAppendingString:@"\n"];
+	}
+	NSLog(@"pianobar: sendCommand: %@", command);
+	// http://stackoverflow.com/questions/1294436/how-to-catch-sigpipe-in-iphone-app
+	signal(SIGPIPE, SigPipeHandler);
+	[writeHandle writeData:[command dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 void SigPipeHandler(int s)
 {
-    // do your handling
+	// do your handling
 }
 
 
 // Notification when output is available from pianobar 
 - (void)outputAvailable: (NSNotification *)notification
 {
-  NSData *data = [[notification userInfo] objectForKey:@"NSFileHandleNotificationDataItem"];
-  
-  if ([data length])
-  {
-    [self processOutput:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
-    
-    [readHandle readInBackgroundAndNotify];
-  }
+	NSData *data = [[notification userInfo] objectForKey:@"NSFileHandleNotificationDataItem"];
+	
+	if ([data length])
+	{
+		[self processOutput:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+		
+		[readHandle readInBackgroundAndNotify];
+	}
 }
 
 
 // Take all the output and figure out what to do with it
 - (void)processOutput:(NSString *)output
 {
-  NSLog(@"raw output:\n%@", output);
-  
-  // Remove whitespace and newlines from output as well as the character pianobar starts every line with
+//	NSLog(@"raw output:\n%@", output);
+	
+	// Remove whitespace and newlines from output as well as the character pianobar starts every line with
 	NSString *cleaned = [[[output stringByReplacingOccurrencesOfString:@"\033[2K" withString:@""] stringByReplacingOccurrencesOfString:@"\t" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-  // Concatenate station list output
-  if (stationsStarted)
-  {
-    self.stationList = [self.stationList stringByAppendingFormat:@"%@\n", cleaned];
-  }
-  
-  // Time lines are prefixed with #
-  if ([cleaned hasPrefix:@"#"])
-  {
-    self.currentTime = [cleaned stringByReplacingOccurrencesOfString:@"#  " withString:@""];
-  }
-  else if ([cleaned rangeOfString:@"Username"].location != NSNotFound)
-  {
-    // Not using at the moment, username should be in ~/.config/pianobar/config
-    [self sendCommand:username];
-  }
-  else if ([cleaned rangeOfString:@"Password"].location != NSNotFound) 
-  {
-     // Not using at the moment, password should be in ~/.config/pianobar/config
-    [self sendCommand:password];
-  }
-  else if ([cleaned rangeOfString:@"Get stations"].location != NSNotFound)
-  {
-    // Start of station list output
-    stationsStarted = YES;
-  }
-  else if ([cleaned rangeOfString:@"Select station"].location != NSNotFound)
-  {
-    // End of station list output, prompt for selecting station
-    stationsStarted = NO;
-
-    // A little more specific cleanup
-    self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"Ok.\n" withString:@""];
-    self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"\n[?] Select station:\n" withString:@""];
-    
-    // Notification that we need to choose a station
-    [[NSNotificationCenter defaultCenter] postNotificationName:TransistorSelectStationNotification object:self userInfo:[NSDictionary dictionaryWithObject:self.stationList forKey:@"stations"]];
-  }
+	
+	NSArray *lines = [cleaned componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	for (NSString *cleaned in lines)
+	{
+		// Time lines are prefixed with #
+		if ([cleaned hasPrefix:@"#"])
+		{
+			self.currentTime = [cleaned stringByReplacingOccurrencesOfString:@"#  " withString:@""];
+		}
+		else if ([cleaned rangeOfString:@"Email"].location != NSNotFound)
+		{
+			// Not using at the moment, username should be in ~/.config/pianobar/config
+			[self sendCommand:username];
+		}
+		else if ([cleaned rangeOfString:@"Password"].location != NSNotFound) 
+		{
+			// Not using at the moment, password should be in ~/.config/pianobar/config
+			[self sendCommand:password];
+		}
+		else if (firstLaunch && [cleaned rangeOfString:@"Get stations"].location != NSNotFound)
+		{
+			// Start of station list output
+			stationsStarted = YES;
+			firstLaunch = NO;
+		}
+		else if (stationsStarted && [cleaned rangeOfString:@"Select station"].location != NSNotFound)
+		{
+			// End of station list output, prompt for selecting station
+			stationsStarted = NO;
+			
+			// A little more specific cleanup
+			self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"Ok.\n" withString:@""];
+			self.stationList = [self.stationList stringByReplacingOccurrencesOfString:@"\n[?] Select station:\n" withString:@""];
+			
+			// Notification that we need to choose a station
+			[[NSNotificationCenter defaultCenter] postNotificationName:TransistorSelectStationNotification object:self userInfo:[NSDictionary dictionaryWithObject:self.stationList forKey:@"stations"]];
+		}
+		else if (stationsStarted)
+		{
+			self.stationList = [self.stationList stringByAppendingFormat:@"%@\n", cleaned];
+		}
+		else
+		{
+			NSLog(@"output:\n%@", output);
+		}
+	}
 }
 
 
@@ -194,7 +203,7 @@ void SigPipeHandler(int s)
 // Only handling a single event, when a new song starts
 - (void)handleSongStartEvent:(NSNotification *)notification
 {
-  [self parseEventInfo:[notification object]];	
+	[self parseEventInfo:[notification object]];	
 }
 
 
@@ -202,21 +211,21 @@ void SigPipeHandler(int s)
 // Parse into a dictionary so we can get the info we need out easier
 - (void)parseEventInfo:(NSString *)info
 {
-    NSLog(@"event info:%@", info);
-  NSMutableDictionary *data = [NSMutableDictionary dictionary];
-  NSArray *lines = [[info stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@"\n"];
-  
-  for (NSString *line in lines)
-  {
-    NSArray *keyValue = [line componentsSeparatedByString:@"="];
-    [data setObject:[keyValue objectAtIndex:1] forKey:[keyValue objectAtIndex:0]];
-  }
+	NSLog(@"event info:%@", info);
+	NSMutableDictionary *data = [NSMutableDictionary dictionary];
+	NSArray *lines = [[info stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByString:@"\n"];
 	
-  // Use accessors to ensure KVO notifications are sent
-  self.currentArtist = [data objectForKey:@"artist"];
-  self.currentSong = [data objectForKey:@"title"];
-  self.currentAlbum = [data objectForKey:@"album"];
-  self.currentArtworkURL = [NSURL URLWithString:[data objectForKey:@"coverArt"]];
+	for (NSString *line in lines)
+	{
+		NSArray *keyValue = [line componentsSeparatedByString:@"="];
+		[data setObject:[keyValue objectAtIndex:1] forKey:[keyValue objectAtIndex:0]];
+	}
+	
+	// Use accessors to ensure KVO notifications are sent
+	self.currentArtist = [data objectForKey:@"artist"];
+	self.currentSong = [data objectForKey:@"title"];
+	self.currentAlbum = [data objectForKey:@"album"];
+	self.currentArtworkURL = [NSURL URLWithString:[data objectForKey:@"coverArt"]];
 }
 
 
@@ -225,48 +234,13 @@ void SigPipeHandler(int s)
 
 + (TRPianobarManager *)sharedManager
 {
-  if (sharedPianobarManager == nil)
-  {
-    sharedPianobarManager = [[super allocWithZone:NULL] init];
-  }
-  
-  return sharedPianobarManager;
-}
-
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-  return [[self sharedManager] retain];
-}
-
-
-- (id)copyWithZone:(NSZone *)zone
-{
-  return self;
-}
-
-
-- (id)retain
-{
-  return self;
-}
-
-
-- (NSUInteger)retainCount
-{
-  return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-
-- (void)release
-{
-  //do nothing
-}
-
-
-- (id)autorelease
-{
-  return self;
+	static TRPianobarManager *shared;
+	static dispatch_once_t token;
+	dispatch_once(&token, ^{
+		shared = [[TRPianobarManager alloc] init];
+	});
+	
+	return shared;
 }
 
 @end
